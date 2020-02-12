@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <statements>
-	<statement id="1">It is important to investigate the impact of code reviews on detection and/or fixes of bugs. </statement>
+	<statement id="1">It is important to investigate the impact of code reviews on detection and/or fixes of <b> bugs </b>. </statement>
 <statement id="2">It is important to investigate the impact of code reviews on detection and/or fixes of post release defects. </statement>
 <statement id="3">It is important to investigate the impact of code reviews on detection and/or fixes of software security (vulnerabilities). </statement>
 <statement id="4">It is important to investigate the impact of code reviews on evaluation and/or fixes of software design (anti-patterns/code smells, TDD effectiveness).</statement>
