@@ -7,20 +7,51 @@
 		software design (anti-patterns/code smells, TDD effectiveness), and
 		program logic (fixes of conditional statements).
 	</statement>
-	<statement id="2">It is important to understand the code review impact on teams' understanding of the code under review, peer impression in terms of trust, reliability, perception of expertise, and friendship, knowledge dissemination, time and motivation to contribute, and developers' sentiment.</statement>
-	<statement id="3">Deviating from accepted systematic review methods may introduce bias and impact the validity of the resulting rapid review, which may be an unacceptable risk for some knowledge users (practitioners).</statement>
-	<statement id="4">Further research comparing the methods and results of rapid reviews and systematic reviews is required before I decide how I feel about rapid reviews.</statement>
-	<statement id="5">Rapid reviews are too focused in scope and/or context to be generalizable to a variety of knowledge users (practitioners).</statement>
-	<statement id="6">Rapid reviews mean different things to different people.</statement>
-	<statement id="7">Rapid reviews should only precede a more comprehensive and rigorous systematic review.</statement>
-	<statement id="8">The opportunity cost of a comprehensive systematic review is too high and it is more advantageous to conduct rapid reviews when timeliness is a factor.</statement>
-	<statement id="9">Rapid reviews do not replace systematic reviews.</statement>
-	<statement id="10">All evidence synthesis products, including rapid reviews and systematic reviews, can be conducted very well or very poorly.</statement>
-	<statement id="11">Rapid reviews are comparable to systematic reviews except they are done in a more timely fashion.</statement>
-	<statement id="12">Rapid reviews are quick and dirty systematic reviews.</statement>
-	<statement id="13">Rapid reviews need to be tailored to the specific needs of the knowledge user (practitioners).</statement>
-	<statement id="14">Rapid reviews meet the needs of knowledge users (practitioners).</statement>
-	<statement id="15">There are few evidence on rapid reviews, so I cannot support or oppose their use in decision-making.</statement>
-	<statement id="16">There is so much overlap across the various evidence synthesis methods that I cannot generalize my opinion to favor one over the other without the context of the decision at hand.</statement>
-	<statement id="17">There is a risk involved in tailoring accepted systematic review methods to produce rapid reviews that we do not yet understand.</statement>
+	<statement id="2">It is important to understand the code review impact on -
+		teams' understanding of the code under review, 
+		peer impression in terms of trust, reliability, perception of expertise, and friendship, 
+		knowledge dissemination, 
+		time and motivation to contribute, and 
+		developers' sentiment.
+	</statement>
+	<statement id="3">It is important to know the impact of static code analysis, symbolic execution debuggin and gamification elements on the code review process. </statement>
+	<statement id="4">It is important to know how code change descriptions, size, commit history cohenrence and/or review particiaption history affect code review process. </statement>
+	<statement id="5">It is importnat to evaluate the fitness of code reviews process in different contexts. </statement>
+	<statement id="6">It is important to know the relationship between review efficiency and effectiveness, and human factors such as the reviewer's:
+		age and experience,
+		attention span,
+		workload,
+		social interactions,
+		understanding of each other's comments,
+		reviewing patterns and focus (we should here list only the factors that are measured, not the measurement approach, like eye movement)
+		perception of code quality.
+	</statement>
+	<statement id="7">It is important to  know the ifference between core (experienced) and not core reviewers and developers in terms of:
+	review requests amount, frequency and speed,
+	activity, involvement and commitment,
+	likelihood of change request acceptance (conformance to code style increases likelihood),
+	level of agreement between reviewers,
+	career paths, and
+	ability to find vulnerabilities
+	</statement>
+	<statement id="8"> It is important to know the effect of organizational factors on code reviews such as:
+		number of involved developers,
+		individual and team motivation,
+		fairness of code review prioritization, and
+		satisfaction of information needs.
+	</statement>
+	<statement id="9">Support for any one of the following activities is important - 
+		identify the sentiment/attitude in reviews,
+		determine the usefulness of reviews,
+		identify the intention of reviews,
+		estimate the review effort,
+		monitor the review effort,
+		monitor review performance and quality,
+		selection or ordering of code to review,
+		selection of appropriate code reviewers,
+		code change understanding,
+		code review on touch-enabled devices,
+		manage code reviews, and 
+		automate code quality assessment. 
+	</statement>
 </statements>
