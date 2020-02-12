@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <statements>
-	<statement id="1">The evidence from rapid reviews is good enough to inform low-risk, emergent policy or decision-making needs when the alternative is the use of no evidence.</statement>
+	<statement id="1">Understading the impact of code reviews on code quality in terms of:
+- detection and/or fixes of bugs
+- post release defects
+- software security (=vulnerabilities)
+- software design (anti-patterns, code smells, TDD effectiveness) 
+- program logic (fixes of conditional statements) is important.</statement>
 	<statement id="2">When time allows, a comprehensive systematic review of all available evidence should always be conducted.</statement>
 	<statement id="3">Deviating from accepted systematic review methods may introduce bias and impact the validity of the resulting rapid review, which may be an unacceptable risk for some knowledge users (practitioners).</statement>
 	<statement id="4">Further research comparing the methods and results of rapid reviews and systematic reviews is required before I decide how I feel about rapid reviews.</statement>
