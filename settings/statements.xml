@@ -32,43 +32,41 @@
 <statement id="26">It is important to investigate the effectiveness of the code review process. </statement> 
 <statement id="27">It is important to investigate the difference between pre and post-commit code reviews. </statement> 
 <statement id="28">It is important to investigate strategies for merging pull requests. </statement> 
-<statement id="29">It is important to investigate. </statement> 
-<statement id="30">It is important to investigate motivations, challenges and best practices of the code review process. </statement> 
+<statement id="29">It is important to investigate motivations, challenges and best practices of the code review process. </statement> 
 
-<statement id="31">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ age and experience </statement> 
-<statement id="32">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ attention span  </statement> 
-<statement id="33">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ workload </statement> 
-<statement id="34">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ social interactions </statement> 
-<statement id="35">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ understanding of each other's comments </statement> 
-<statement id="36">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ reviewing patterns and focus </statement> 
-<statement id="37">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ perception of code quality </statement> 
+<statement id="30">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ age and experience </statement> 
+<statement id="31">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ attention span  </statement> 
+<statement id="32">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ workload </statement> 
+<statement id="33">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ social interactions </statement> 
+<statement id="34">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ understanding of each other's comments </statement> 
+<statement id="35">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ reviewing patterns and focus </statement> 
+<statement id="36">It is important to know the relationship between review efficiency and effectiveness, and reviewers’ perception of code quality </statement> 
 
-
-<statement id="38">It is important to know the difference between core (experienced) and not core reviewers and developers in terms of the review requests amount, frequency and speed
+<statement id="37">It is important to know the difference between core (experienced) and not core reviewers and developers in terms of the review requests amount, frequency and speed
 </statement> 
-<statement id="39">It is important to know the difference between core (experienced) and not core reviewers and developers in terms of the activity, involvement and commitment </statement> 
-<statement id="40">It is important to know the difference between core (experienced) and not core reviewers and developers in terms of the likelihood of change request acceptance (conformance to code style increases likelihood)
+<statement id="38">It is important to know the difference between core (experienced) and not core reviewers and developers in terms of the activity, involvement and commitment </statement> 
+<statement id="39">It is important to know the difference between core (experienced) and not core reviewers and developers in terms of the likelihood of change request acceptance (conformance to code style increases likelihood)
 </statement> 
-<statement id="41">It is important to know the difference between core (experienced) and not core reviewers and developers in terms of  the level of agreement between reviewers </statement> 
-<statement id="42">It is important to know the difference between core (experienced) and not core reviewers and developers in terms of  career paths  </statement> 
-<statement id="43">It is important to know the difference between core (experienced) and not core reviewers and developers in terms of  the ability to find vulnerabilities </statement> 
+<statement id="40">It is important to know the difference between core (experienced) and not core reviewers and developers in terms of  the level of agreement between reviewers </statement> 
+<statement id="41">It is important to know the difference between core (experienced) and not core reviewers and developers in terms of  career paths  </statement> 
+<statement id="42">It is important to know the difference between core (experienced) and not core reviewers and developers in terms of  the ability to find vulnerabilities </statement> 
 
-<statement id="44">It is important to know the effect of number of involved developers on code reviews </statement> 
-<statement id="45">It is important to know the effect of individual and team motivation on code reviews </statement> 
-<statement id="46">It is important to know the effect of fairness of code review prioritization on code reviews </statement> 
-<statement id="47">It is important to know the effect of satisfaction of information needs on code reviews </statement> 
+<statement id="43">It is important to know the effect of number of involved developers on code reviews </statement> 
+<statement id="44">It is important to know the effect of individual and team motivation on code reviews </statement> 
+<statement id="45">It is important to know the effect of fairness of code review prioritization on code reviews </statement> 
+<statement id="46">It is important to know the effect of satisfaction of information needs on code reviews </statement> 
 
-<statement id="48">Support for identifying the sentiment/attitude in reviews is important. </statement>
-<statement id="49">Support for determining the usefulness of reviews is important. </statement>
-<statement id="50">Support for identifying the intention of reviews is important. </statement>
-<statement id="51">Support for estimating the review effort is important. </statement> 
-<statement id="52">Support for monitoring the review effort is important. </statement> 
-<statement id="53">Support for monitoring review performance and quality is important. </statement> 
-<statement id="54">Support for selection or ordering of code to review is important. </statement> 
-<statement id="55">Support for selection of appropriate code reviewers is important. </statement> 
-<statement id="56">Support for code change understanding is important. </statement> 
-<statement id="57">Support for code review on touch-enabled devices is important. </statement> 
-<statement id="58">Support for managing code reviews, and automate code quality assessment is important. </statement> 
-<statement id="59">Support for automating code quality assessment is important. </statement> 
+<statement id="47">Support for identifying the sentiment/attitude in reviews is important. </statement>
+<statement id="48">Support for determining the usefulness of reviews is important. </statement>
+<statement id="49">Support for identifying the intention of reviews is important. </statement>
+<statement id="50">Support for estimating the review effort is important. </statement> 
+<statement id="51">Support for monitoring the review effort is important. </statement> 
+<statement id="52">Support for monitoring review performance and quality is important. </statement> 
+<statement id="53">Support for selection or ordering of code to review is important. </statement> 
+<statement id="54">Support for selection of appropriate code reviewers is important. </statement> 
+<statement id="55">Support for code change understanding is important. </statement> 
+<statement id="56">Support for code review on touch-enabled devices is important. </statement> 
+<statement id="57">Support for managing code reviews, and automate code quality assessment is important. </statement> 
+<statement id="58">Support for automating code quality assessment is important. </statement> 
 
 </statements>
