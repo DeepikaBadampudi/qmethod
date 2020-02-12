@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+text-align:justify
 <statements>
-	<statement id="1">Understading the impact of code reviews on code quality in terms of:
-- detection and/or fixes of bugs
-- post release defects
-- software security (=vulnerabilities)
-- software design (anti-patterns, code smells, TDD effectiveness) 
-- program logic (fixes of conditional statements) is important.</statement>
-	<statement id="2">When time allows, a comprehensive systematic review of all available evidence should always be conducted.</statement>
+	<statement id="1">It is important to understad the impact of code reviews on code quality in terms of detection and/or fixes of -
+		bugs, 
+		post release defects, 
+		software security (vulnerabilities) 
+		software design (anti-patterns/code smells, TDD effectiveness), and
+		program logic (fixes of conditional statements).
+	</statement>
+	<statement id="2">It is important to understand the code review impact on teams' understanding of the code under review, peer impression in terms of trust, reliability, perception of expertise, and friendship, knowledge dissemination, time and motivation to contribute, and developers' sentiment.</statement>
 	<statement id="3">Deviating from accepted systematic review methods may introduce bias and impact the validity of the resulting rapid review, which may be an unacceptable risk for some knowledge users (practitioners).</statement>
 	<statement id="4">Further research comparing the methods and results of rapid reviews and systematic reviews is required before I decide how I feel about rapid reviews.</statement>
 	<statement id="5">Rapid reviews are too focused in scope and/or context to be generalizable to a variety of knowledge users (practitioners).</statement>
