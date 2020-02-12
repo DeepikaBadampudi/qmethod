@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-text-align:justify
 <statements>
 	<statement id="1">It is important to understad the impact of code reviews on code quality in terms of detection and/or fixes of -
 		bugs, 
