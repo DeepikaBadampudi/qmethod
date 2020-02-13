@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <statements>
 	<statement id="1">It is important to investigate the impact of code reviews on detection and/or fixes of bugs. </statement>
-<statement id="2">It is important to investigate the impact of code reviews on detection and/or fixes of post release defects. </statement>
-<statement id="3">It is important to investigate the impact of code reviews on detection and/or fixes of software security (vulnerabilities). </statement>
-<statement id="4">It is important to investigate the impact of code reviews on evaluation and/or fixes of software design (anti-patterns/code smells, TDD effectiveness).</statement>
+	<statement id="2">It is important to investigate the impact of code reviews on detection and/or fixes of post release defects. </statement>
+	<statement id="3">It is important to investigate the impact of code reviews on detection and/or fixes of software security (vulnerabilities). </statement>
+<statement id="4">It is important to investigate the impact of code reviews on evaluation and/or fixes of software design and quality (anti-patterns/code smells, TDD effectiveness).</statement>
 <statement id="5">It is important to investigate the impact of code reviews on evaluation and/or fixes of program logic (fixes of conditional statements).</statement>
 
 <statement id="6">It is important to investigate the code review impact on teams' understanding of the code under review. </statement>
@@ -19,7 +19,7 @@
 <statement id="14">It is important to investigate how code change descriptions affects code review process. </statement> 
 <statement id="15">It is important to investigate how  code size changes affects code review process. </statement> 
 <statement id="16">It is important to investigate how commit history cohenrence affects code review process. </statement> 
-<statement id="17">It is important to investigate how review particiaption history affects code review process. </statement> 
+<statement id="17">It is important to investigate how review participation history affects code review process. </statement> 
 
 <statement id="18">It is important to investigate when code reviews should be performed. </statement> 
 <statement id="19">It is important to investigate how many people should participate in a review. </statement> 
@@ -67,6 +67,6 @@
 <statement id="55">Support for code change understanding is important. </statement> 
 <statement id="56">Support for code review on touch-enabled devices is important. </statement> 
 <statement id="57">Support for managing code reviews, and automate code quality assessment is important. </statement> 
-<statement id="58">Support for automating code quality assessment is important. </statement> 
+	<statement id="58">Support for automating code quality assessment is important. </statement>
 
 </statements>
