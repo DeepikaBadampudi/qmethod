@@ -228,6 +228,23 @@ var generateMyTd = function(id, rows, colour) {
 	return toptd;
 }
 
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+
+    return ''; // return empty string if parameter not found
+};
+
 var app = angular.module('qmethod', ['formly','formlyBootstrap','ui.router', 'dndLists', 'igTruncate', '720kb.tooltips']);
 
 // ========== CONFIG
@@ -310,7 +327,8 @@ app.controller("appCtrl", function ($scope, $rootScope, $state) {
 app.controller("step1Ctrl",['promisedata','startingPages',
 		'$scope','$rootScope','$state','$sce',function
 	   	(promisedata,startingPages,$scope,$rootScope,$state,$sce) {
-	$rootScope.formFields = xml2form(promisedata.data);
+	        $rootScope.formFields = xml2form(promisedata.data);
+          $rootScope.starttime = Date.now();
 	$scope.currentPageIndex = 0;
 	$scope.pageData = xml2html(startingPages.data);
 	$scope.debugging = angular.copy(debugging);
@@ -712,7 +730,12 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', function ($scope, 
 			ratings: {},
 			explanations: {agree:[],disagree:[]},
 			questionnaire: {},
-      ip: ''
+        metadata: {
+            ip: '',
+            starttime: '',
+            endtime: '',
+            pilot: true,
+            referral: ''}
 		}
 		response.questionnaire = angular.copy(vm.model);
 		
@@ -742,7 +765,10 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', function ($scope, 
 		}
 
       $.getJSON("https://api.ipify.org?format=jsonp&callback=?", function(json) {
-          response.ip = json.ip;
+          response.metadata.ip = json.ip;
+          response.metadata.referral = getUrlParameter('ref');
+          response.metadata.starttime = $rootScope.starttime;
+          response.metadata.endtime = Date.now();
           if (typeof rootRef != "undefined") {
 			        rootRef.push(response, function (error) {
 				          if (error) {
