@@ -326,8 +326,7 @@ app.controller("step1Ctrl",['promisedata','startingPages',
 		$scope.currentPage = $sce.trustAsHtml($scope.pageData[$scope.currentPageIndex].outerHTML);
 	}
 
-
-	$scope.next = function () {
+  $scope.next = function () {
 		if ($scope.currentPageIndex+1 >= $scope.maxPages || debugging) {
 			$state.go('step3');
 		} else {
@@ -712,7 +711,8 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', function ($scope, 
 			},
 			ratings: {},
 			explanations: {agree:[],disagree:[]},
-			questionnaire: {}
+			questionnaire: {},
+      ip: ''
 		}
 		response.questionnaire = angular.copy(vm.model);
 		
@@ -741,19 +741,22 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', function ($scope, 
 			response.explanations.disagree.push({statementId:exp.statement.id,text:exp.explanation});
 		}
 
-		if (typeof rootRef != "undefined") {
-			rootRef.push(response, function (error) {
-				if (error) {
-					alert("Couldn't send data to firebase. Cause:"+error);
-					$scope.send();
-					return;
-				} else {
-					$state.go('step7');
-				}
-			});
-		} else {
-			console.log (JSON.stringify(response));
-		}
+      $.getJSON("https://api.ipify.org?format=jsonp&callback=?", function(json) {
+          response.ip = json.ip;
+          if (typeof rootRef != "undefined") {
+			        rootRef.push(response, function (error) {
+				          if (error) {
+					            alert("Couldn't send data to firebase. Cause:"+error);
+					            $scope.send();
+					            return;
+				          } else {
+					            $state.go('step7');
+				          }
+			        });
+		      } else {
+			        console.log (JSON.stringify(response));
+		      }
+      });
 	}
 
 }]);
