@@ -228,7 +228,7 @@ var generateMyTd = function(id, rows, colour) {
 	return toptd;
 }
 
-var getUrlParameter = function getUrlParameter(sParam) {
+var getUrlParameter = function(sParam) {
     var sPageURL = window.location.search.substring(1),
         sURLVariables = sPageURL.split('&'),
         sParameterName,
@@ -243,6 +243,10 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 
     return ''; // return empty string if parameter not found
+};
+
+var numberOfClassifiedStatements  = function(classifications) {
+    return classifications.AGREE.length + classifications.NEUTRAL.length + classifications.DISAGREE.length;
 };
 
 var app = angular.module('qmethod', ['formly','formlyBootstrap','ui.router', 'dndLists', 'igTruncate', '720kb.tooltips']);
@@ -381,6 +385,7 @@ app.controller("step3Ctrl",['promisedata','$scope', '$rootScope', '$state', func
 		$rootScope.statements = JSON.parse(JSON.stringify(statements));
 	}
 
+    
 	$scope.cards = {
 		selected: null,
 		first: 1,
@@ -392,6 +397,10 @@ app.controller("step3Ctrl",['promisedata','$scope', '$rootScope', '$state', func
 		'NEUTRAL': [],
 		'DISAGREE': [],
 	};
+
+    $scope.statementsToGo = $rootScope.numberOfStatements -
+        numberOfClassifiedStatements($scope.classifications);
+
 
 	$('#helpModal').modal(show = true);
 
@@ -450,6 +459,9 @@ app.controller("step3Ctrl",['promisedata','$scope', '$rootScope', '$state', func
 		item.category = "agree";
 		$scope.classifications.AGREE.push(item);
 
+      $scope.statementsToGo = $rootScope.numberOfStatements -
+          numberOfClassifiedStatements($scope.classifications);
+ 
 		return true;
 	}
 
@@ -461,6 +473,9 @@ app.controller("step3Ctrl",['promisedata','$scope', '$rootScope', '$state', func
 		item.category = "neutral";
 		$scope.classifications.NEUTRAL.push(item);
 
+      $scope.statementsToGo = $rootScope.numberOfStatements -
+          numberOfClassifiedStatements($scope.classifications);
+
 		return true;
 	}
 
@@ -471,6 +486,9 @@ app.controller("step3Ctrl",['promisedata','$scope', '$rootScope', '$state', func
 
 		item.category = "disagree";
 		$scope.classifications.DISAGREE.push(item);
+
+      $scope.statementsToGo = $rootScope.numberOfStatements -
+          numberOfClassifiedStatements($scope.classifications);
 
 		return true;
 	}

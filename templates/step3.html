@@ -44,6 +44,10 @@
             </div>
         </div>
 
+        <div ng-show="!done()" class="statementcounter">
+Statements to go: {{ statementsToGo }}
+        </div>
+
         <div class="cardsholder" style="height: 175px">
             <ul dnd-list="cards.statements">
                 <li ng-repeat="statement in cards.statements | filter: hasNoCategory | limitTo: 1"
