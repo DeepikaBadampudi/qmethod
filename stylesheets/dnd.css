@@ -94,22 +94,22 @@ cardRatingJustitication  {
 
 /*Styles for -3 to 0 ratings*/
 
-table tr td .panel {
+table tr td .card {
     background-color: rgb(255, 255, 255);
     border-color: rgb(0, 0, 0);
 }
 
-.panel-info>.disagree_panel_heading {
+.card>.disagree_card_heading {
     background-image: linear-gradient(to bottom, #ff4242 0, #e82a2a 100%)!important;
     border-color: #e82a2a !important;
 }
 
-.panel-info>.neutral_panel_heading {
+.card>.neutral_card_heading {
     background-image: linear-gradient(to bottom, #BAB6B6 0, #969292 100%) !important;
     border-color: #969292 !important;
 }
 
-.panel-info>.agree_panel_heading {
+.card>.agree_card_heading {
     background-image: linear-gradient(to bottom, #30A835 0, #06960D 100%) !important;
     border-color: #06A10E !important;
 }
@@ -129,7 +129,7 @@ table tr td .panel {
     border-color: #06960D
 }
 
-.panel-title {
+.card-title {
     color: white !important;
 }
 

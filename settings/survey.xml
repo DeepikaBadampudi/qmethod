@@ -1,25 +1,38 @@
 <item id="form">
-	<input type="input" required="true" key="inputex">
-		<label>Input example.</label>
+	<input type="input" required="true" key="sdex">
+		<label>Software development experience (years)</label>
 	</input>
-	<input type="radio" required="true" key="radioex">
+  <input type="input" required="true" key="crex">
+		<label>Code review experience (years)</label>
+	</input>
+  <input type="input" required="true" key="role">
+		<label>Current employment (role)</label>
+	</input>
+  <input type="input" required="false" key="email">
+		<label>Email address</label>
+	</input>
+	<!-- <input type="radio" required="true" key="radioex">
 		<label>Radio example.</label>
 		<option name="Radio 1">Example1</option>
 		<option name="Radio 2">Example2</option>
+	</input> -->
+	<input type="select" required="true" key="education">
+		<label>Education (select the most recent)</label>
+		<option name="High school">High school</option>
+		<option name="Bachelor">Bachelor</option>
+		<option name="Master">Master</option>
+    <option name="PhD">PhD</option>
+    <option name="Other">Other</option>
 	</input>
-	<input type="select" required="true" key="selectex">
-		<label>Select example.</label>
-		<option name="Select example 1">select1</option>
-		<option name="Select example 2">select2</option>
-		<option name="Select example 3">select3</option>
+	<input type="multiCheckbox" required="false" key="edufields">
+		<label>Choose all areas that apply to your education</label>
+		<option name="Humanities (e.g. Arts, History, Law, Languages and Literature, Philosophy)">Humanities (e.g. Arts, History, Law, Languages and Literature, Philosophy)</option>
+		<option name="Social Sciences (e.g. Economics, Political science, Psychology, Sociology)">Social Sciences (e.g. Economics, Political science, Psychology, Sociology)</option>
+		<option name="Natural Sciences (e.g. Biology, Chemistry, Physics)">Natural Sciences (e.g. Biology, Chemistry, Physics)</option>
+    <option name="Formal Sciences (e.g. Computer Science, Mathematics, Statistics)">Formal Sciences (e.g. Computer Science, Mathematics, Statistics)</option>
+    <option name="Applied Sciences (e.g. Software Engineering, Business, Engineering and Technology, Medicine and Health)">Applied Sciences (e.g. Software Engineering, Business, Engineering and Technology, Medicine and Health)</option>
 	</input>
-	<input type="multiCheckbox" required="true" key="multicheckboxex">
-		<label>Multi-checkbox example.</label>
-		<option name="Checkbox 1">checkbox1</option>
-		<option name="Checkbox 2">checkbox2</option>
-		<option name="Checkbox 3">checkbox3</option>
-	</input>
-	<input type="textarea" required="false" key="textareaex">
-		<label>Text Area example.</label>
+	<input type="textarea" required="false" key="comment">
+		<label>Comments (e.g. a not mentioned but important aspect related to code reviews)</label>
 	</input>
 </item>

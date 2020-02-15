@@ -1,32 +1,34 @@
-<div ng-controller='step5Ctrl'>
-	<div ng-show="debugging" align="center" style="background-color:red;color:white">
-		<b>DEBUGGING</b>
+<div class="container-fluid" ng-controller='step5Ctrl'>
+	<div class="row justify-content-center" ng-show="debugging" style="background-color:red;color:white">
+		  <b>DEBUGGING</b>
 	</div>
 
-	<br/>
-	<br/>
-	
-	<center>If you need to <b>read the instructions of this step again, click on the "Help"</b> button on the bottom of this page.</center>
-
-	<br/>
-	<br/>
+  <div class="row" style="margin-top:20px; margin-bottom:40px;">
+      <div class="col-md-2 offset-md-2">
+          <button type="button" ng-click="back()" class="btn btn-primary btn-block">Back</button>
+      </div>
+			<div class="col-md-2 offset-md-1" data-toggle="modal" data-target="#helpModal">
+          <button type="button" class="btn btn-info btn-block">Read the instructions again</button>
+      </div>
+      <div class="col-md-2 offset-md-1 next-button" ng-show="done()">
+          <button type="button" ng-click="next()" class="btn btn-primary btn-block">Continue</button>
+      </div>
+  </div>
 
 	<div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="helpModalLabel">EXPLAINING THE EXTREME STATEMENTS</h4>
+                    <h5 class="modal-title" id="helpModalLabel">PLEASE READ THESE INSTRUCTIONS</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                <b><center>PLEASE READ THESE INSTRUCTIONS.</center></b>
-                <br>
-                <br> Please explain why you agree most or disagree most with the following statements you have placed below "+3" or "-3".
-				<br>
-                <br> If you want to read this instruction again, press the help button.
+                    <p>Please explain why you agree most or disagree most with the following statements you have placed below "+3" or "-3".</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
                 </div>
             </div>
         </div>
@@ -64,32 +66,4 @@
 			</td>
 		</tr>
 	</table>
-	
-	<br/>
-	<br/>
-	
-	<table align="center">
-		<tr>
-			<td>
-				<div class="col-xs-4 col-xs-offset-4 next-button" align="center" style="margin-bottom:50px">
-					<a href="" ng-click="back()" class="btn btn-default btn-lg btn-block" style="width:100px">Back</a>
-				</div>
-			</td>
-			<td>
-				<div align="center" ng-show="done()">
-					<div class="col-xs-4 col-xs-offset-4 next-button" align="center" style="margin-bottom:50px">
-						<a href="" ng-click="next()" class="btn btn-default btn-lg btn-block" style="width:100px">Continue</a>
-					</div>
-				</div>
-			</td>
-			<td>
-                <div class="col-xs-4 col-xs-offset-4 next-button" align="center" style="margin-bottom:50px" data-toggle="modal" data-target="#helpModal">
-                    <a href="" ng-click="help()" class="btn btn-default btn-lg btn-block" style="width:100px">Help</a>
-                </div>
-			</td>
-		</tr>
-	</table>
-	
-	<br/>
-	<br/>
 </div>

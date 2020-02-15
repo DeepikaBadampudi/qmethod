@@ -1,76 +1,73 @@
-<div class="simpleDemo">
-	<div ng-show="debugging" align="center" style="background-color:red;color:white">
-		<b>DEBUGGING</b>
-	</div>
-    <br/>
-    <br/>
+<div class="container-fluid simpleDemo">
+    <div class="row justify-content-center" ng-show="debugging" align="center" style="background-color:red;color:white">
+        <b>DEBUGGING</b>
+    </div>
+    <div class="row" style="margin-top:20px; margin-bottom:40px;">
+        <div class="col-md-2 offset-md-2">
+            <button type="button" ng-click="back()" class="btn btn-primary btn-block">Back</button>
+        </div>
+				<div class="col-md-2 offset-md-1" data-toggle="modal" data-target="#helpModal">
+            <button type="button" class="btn btn-info btn-block">Read the instructions again</button>
+        </div>
+        <div class="col-md-2 offset-md-1 next-button" ng-show="done()">
+            <button type="button" ng-click="next()" class="btn btn-primary btn-block">Continue</button>
+        </div>
+    </div>
 
-    <center>If you need to <b>read the instructions of this step again, click on the "Help"</b> button on the bottom this page.</center>
-
-    <br/>
-    <br/>
-    
     <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="helpModalLabel">CLASSIFING THE STATEMENTS</h4>
+                    <h5 class="modal-title" id="helpModalLabel">PLEASE READ THESE INSTRUCTIONS</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                <b><center>PLEASE READ THESE INSTRUCTIONS.</center></b>
-                <br>
-                <br> Read the following statements carefully and split them up into 3 piles:
-                <br>
-                <br> 1. A pile for statements you tend to disagree with;
-                <br> 2. A pile for cards you tend to agree with;
-                <br> 3. A pile for the rest.
-                <br>
-				<br>OBS: The order you put the cards in each pile is NOT important.
-				<br>
-                <br> If you want to read this instruction again, press the help button.
+                <p>Read the following statements carefully and split them up into 3 piles:
+                    <ol>
+                        <li>A pile for statements you tend to agree with.</li>
+                        <li>A pile for statements you tend to disagree with.</li>
+                        <li>A pile for the rest.</li>
+                    </ol>
+                </p>
+                <p>Note: The order you put the cards in each pile is NOT important.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <center>
-        <div ng-show="done()">
-            <div class="col-xs-4 col-xs-offset-4 next-button">
-                <a href="" ng-click="next()" class="btn btn-default btn-lg btn-block" style="width:300px">Continue</a>
-            </div>
-        </div>
-
+    <div class="row justify-content-center">
         <div ng-show="!done()" class="statementcounter">
-Statements to go: {{ statementsToGo }}
+            <p>Statements to go: <span class="badge badge-info">{{ statementsToGo }}</span></p>
         </div>
+    </div>
 
-        <div class="cardsholder" style="height: 175px">
-            <ul dnd-list="cards.statements">
-                <li ng-repeat="statement in cards.statements | filter: hasNoCategory | limitTo: 1"
+    <div class="cardsholder row justify-content-center" style="height: 175px">
+        <ul dnd-list="cards.statements">
+            <li ng-repeat="statement in cards.statements | filter: hasNoCategory | limitTo: 1"
                  dnd-draggable="statement" dnd-moved="cards.statements.splice($index, 1)"
                  dnd-effect-allowed="move" dnd-selected="cards.first == statement.id"
                   >
                     {{ statement.statement }}
-                </li>
-                <li class="dndPlaceholder" style="display: none;">
-                </li>
-            </ul>
-        </div>
+            </li>
+             <li class="dndPlaceholder" style="display: none;"></li>
+        </ul>
+    </div>
 
-        <div class="step3lists">
-            <div class="simpleDemo row" style="margin:20px ">
+    <div class="step3lists row justify-content-center">
+        <div class="simpleDemo row" style="margin:20px ">
             <div class="row">
                 <table align="center">
                     <tr>
                         <td style="vertical-align:top">
                             <div style="width:320px;padding-right:10px;">
-                                <div class="panel panel-info" id="disagree">
-                                    <div class="panel-heading disagree_panel_heading">
-                                        <h3 class="panel-title" align="center">DISAGREE</h3>
+                                <div class="card" id="disagree">
+                                    <div class="card-header disagree_card_heading">
+                                        <h3 class="card-title" align="center">DISAGREE</h3>
                                     </div>
                                     <ul dnd-list="classifications" dnd-drop="dropDisagreeCallback(index, item, external, type)">
                                         <li ng-repeat="statement in classifications.DISAGREE" dnd-draggable="statement" dnd-moved="classifications.DISAGREE.splice($index, 1)" dnd-effect-allowed="move">
@@ -82,9 +79,9 @@ Statements to go: {{ statementsToGo }}
                         </td>
                         <td style="vertical-align:top">
                             <div style="width:320px;padding-right:10px;">
-                                <div class="panel panel-info" id="neutral">
-                                    <div class="panel-heading neutral_panel_heading">
-                                        <h3 class="panel-title" align="center">NEUTRAL</h3>
+                                <div class="card" id="neutral">
+                                    <div class="card-header neutral_card_heading">
+                                        <h3 class="card-title" align="center">NEUTRAL</h3>
                                     </div>
                                     <ul dnd-list="classifications" dnd-drop="dropNeutralCallback(index, item, external, type)">
                                         <li ng-repeat="statement in classifications.NEUTRAL" dnd-draggable="statement" dnd-moved="classifications.NEUTRAL.splice($index, 1)" dnd-effect-allowed="move">
@@ -96,9 +93,9 @@ Statements to go: {{ statementsToGo }}
                         </td>
                         <td style="vertical-align:top">
                             <div style="width:320px;padding-right:10px;;">
-                                <div class="panel panel-info" id="agree">
-                                    <div class="panel-heading agree_panel_heading">
-                                        <h3 class="panel-title" align="center">AGREE</h3>
+                                <div class="card" id="agree">
+                                    <div class="card-header agree_card_heading">
+                                        <h3 class="card-title" align="center">AGREE</h3>
                                     </div>
                                     <ul dnd-list="classifications" dnd-drop="dropAgreeCallback(index, item, external, type)">
                                         <li ng-repeat="statement in classifications.AGREE" dnd-draggable="statement" dnd-moved="classifications.AGREE.splice($index, 1)" dnd-effect-allowed="move">
@@ -113,22 +110,4 @@ Statements to go: {{ statementsToGo }}
             </div>
         </div>
         </div>
-    </center>
-
-    <form>
-        <table align="center">
-            <tr>
-                <td>
-                    <div class="col-xs-4 col-xs-offset-4 next-button" align="center" style="margin-bottom:50px">
-                        <a href="" ng-click="back()" class="btn btn-default btn-lg btn-block" style="width:100px">Back</a>
-                    </div>
-                </td>
-                <td>
-                    <div class="col-xs-4 col-xs-offset-4 next-button" align="center" style="margin-bottom:50px" data-toggle="modal" data-target="#helpModal">
-                        <a href="" class="btn btn-default btn-lg btn-block" style="width:100px">Help</a>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </form>
 </div>

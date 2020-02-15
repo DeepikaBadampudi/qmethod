@@ -120,31 +120,31 @@ var generateMyTd = function(id, rows, colour) {
 	topdivStyle.value = "width:150px;padding-right:10px;";
 	topdiv.setAttributeNode(topdivStyle);
 
-	var paneldiv = document.createElement('div');
-	// paneldiv attr	
-	var paneldivClass = document.createAttribute('class');
-	paneldivClass.value = "panel panel-info";
-	paneldiv.setAttributeNode(paneldivClass);
+	var carddiv = document.createElement('div');
+	// carddiv attr	
+	var carddivClass = document.createAttribute('class');
+	carddivClass.value = "card";
+	carddiv.setAttributeNode(carddivClass);
 
-	var panelheadingdiv = document.createElement('div'); 
-	// panelheadingdiv attr	
-	var panelheadingdivclass = document.createAttribute('class');
-	panelheadingdivclass.value = "panel-heading";
-	panelheadingdiv.setAttributeNode(panelheadingdivclass);
-	panelheadingdiv.setAttribute("style",
+	var cardheaderdiv = document.createElement('div'); 
+	// cardheaderdiv attr	
+	var cardheaderdivclass = document.createAttribute('class');
+	cardheaderdivclass.value = "card-header";
+	cardheaderdiv.setAttributeNode(cardheaderdivclass);
+	cardheaderdiv.setAttribute("style",
 	"background-image:\
 	 linear-gradient(to bottom,"+colour+" 0,"+colour+" 100%)!important;"); //border-color
 
-	var paneltitleh3 = document.createElement('h3');
-	// paneltitleh3 attr	
-	var paneltitleh3class = document.createAttribute('class');
-	paneltitleh3class.value	= "panel-title";
-	var paneltitleAlign = document.createAttribute('align');
-	paneltitleAlign.value = "center";
-	var paneltitleTextNode = document.createTextNode(id);
-	paneltitleh3.setAttributeNode(paneltitleh3class);
-	paneltitleh3.setAttributeNode(paneltitleAlign);
-	paneltitleh3.appendChild(paneltitleTextNode);
+	var cardtitleh3 = document.createElement('h3');
+	// cardtitleh3 attr	
+	var cardtitleh3class = document.createAttribute('class');
+	cardtitleh3class.value	= "card-title";
+	var cardtitleAlign = document.createAttribute('align');
+	cardtitleAlign.value = "center";
+	var cardtitleTextNode = document.createTextNode(id);
+	cardtitleh3.setAttributeNode(cardtitleh3class);
+	cardtitleh3.setAttributeNode(cardtitleAlign);
+	cardtitleh3.appendChild(cardtitleTextNode);
 
 	var innerul = document.createElement('ul');
 	// innerul attr	
@@ -220,10 +220,10 @@ var generateMyTd = function(id, rows, colour) {
 	tooltipdiv.appendChild(innerli);
 	innerul.appendChild(tooltipdiv);
 	innerul.appendChild(placeholderli);
-	panelheadingdiv.appendChild(paneltitleh3);
-	paneldiv.appendChild(panelheadingdiv);
-	paneldiv.appendChild(innerul);
-	topdiv.appendChild(paneldiv);
+	cardheaderdiv.appendChild(cardtitleh3);
+	carddiv.appendChild(cardheaderdiv);
+	carddiv.appendChild(innerul);
+	topdiv.appendChild(carddiv);
 	toptd.appendChild(topdiv);
 	return toptd;
 }

@@ -2,7 +2,7 @@
 <statements>
 	<statement id="1">It is important to investigate the impact of code reviews on defect detection or repair.</statement>
 	<statement id="2">It is important to investigate the impact of code reviews on code quality.</statement>
-	<statement id="3">It is important to investigate the impact of code reviews on detection or fixes of security issues.</statement>
+  <statement id="3">It is important to investigate the impact of code reviews on detection or fixes of security issues.</statement>
 <statement id="4">It is important to investigate the impact of code reviews on software design.</statement>
 
 <statement id="5">It is important to investigate the impact of code reviews on teams' understanding of the code under review. </statement>

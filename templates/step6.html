@@ -1,15 +1,15 @@
-<div ng-controller="step6Ctrl as vm" style="margin-left:100px; margin-right:100px; margin-bottom:20px; margin-top:50px;">
-	<div ng-show="debugging" align="center" style="background-color:red;color:white">
+<div class="container-fluid" ng-controller="step6Ctrl as vm">
+	<div class="row justify-content-center" ng-show="debugging" align="center" style="background-color:red;color:white">
 		<b>DEBUGGING</b>
 	</div>
-	<formly-form model="vm.model" fields="vm.userFields" form="vm.userForm">
-			<button type="submit" class="btn btn-default btn-lg btn-block" style="width:100px" 
-			ng-click="submit()" ng-disabled="vm.userForm.$invalid" class="btn btn-primary submit-button">Submit</button>
 
-			<button type="button" class="btn btn-default btn-lg btn-block" style="width:100px" 
-			ng-click="back()" class="btn btn-primary submit-button">Back</button>
-	</formly-form>	
-	<br/>
-	<br/>
+  <div class="row justify-content-center" style="margin-top:20px;">
+      <div class="col-md-4">
+	    <formly-form model="vm.model" fields="vm.userFields" form="vm.userForm">
+          <button type="button" class="btn btn-primary"	ng-click="back()">Back</button>
+			    <button type="submit" class="btn btn-success submit-button" ng-click="submit()" ng-disabled="vm.userForm.$invalid">Submit</button>
+	    </formly-form>
+      </div>
+  </div>
 </div>
 
