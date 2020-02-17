@@ -99,19 +99,22 @@ table tr td .card {
     border-color: rgb(0, 0, 0);
 }
 
-.card>.disagree_card_heading {
+.disagree-gradient {
     background-image: linear-gradient(to bottom, #ff4242 0, #e82a2a 100%)!important;
     border-color: #e82a2a !important;
+    color: white;
 }
 
-.card>.neutral_card_heading {
+.neutral-gradient {
     background-image: linear-gradient(to bottom, #BAB6B6 0, #969292 100%) !important;
     border-color: #969292 !important;
+    color: white;
 }
 
-.card>.agree_card_heading {
+.agree-gradient {
     background-image: linear-gradient(to bottom, #30A835 0, #06960D 100%) !important;
     border-color: #06A10E !important;
+    color: white;
 }
 
 #disagree {
@@ -121,12 +124,12 @@ table tr td .card {
 
 #neutral {
     background-color: #BAB9B9;
-    border-color: #969292
+    border-color: #969292;
 }
 
 #agree {
     background-color: #00A848;
-    border-color: #06960D
+    border-color: #06960D;
 }
 
 .card-title {

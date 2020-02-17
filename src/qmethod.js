@@ -366,132 +366,127 @@ app.controller("step1Ctrl",['promisedata','startingPages',
 
 app.controller("step3Ctrl",['promisedata','$scope', '$rootScope', '$state', function (promisedata, $scope, $rootScope, $state) {
 
-	statements = [];
-	$scope.debugging = angular.copy(debugging);
-	if (typeof $rootScope.statements == "undefined") {
-		parser = new DOMParser();
-		xmlDoc = parser.parseFromString(promisedata.data,"application/xml");
-		xmlDocStatementNodes = xmlDoc.getElementsByTagName("statement");
-		for (i=0; i < xmlDocStatementNodes.length; i++) {
-			el = xmlDocStatementNodes[i];
-			el_id = el.getAttribute('id');
-			el_value = el.childNodes[0].nodeValue;
-			statements.push({id: el_id, statement: el_value});
-		}
-		//Pick how many statements we have so we can use it for checks
-		$rootScope.numberOfStatements = 
-			JSON.parse(JSON.stringify(statements.length));
-		//shuffleArray(statements);
-		$rootScope.statements = JSON.parse(JSON.stringify(statements));
-	}
+	  statements = [];
+	  $scope.debugging = angular.copy(debugging);
+	  if (typeof $rootScope.statements == "undefined") {
+		    parser = new DOMParser();
+		    xmlDoc = parser.parseFromString(promisedata.data,"application/xml");
+		    xmlDocStatementNodes = xmlDoc.getElementsByTagName("statement");
+		    for (i=0; i < xmlDocStatementNodes.length; i++) {
+			      el = xmlDocStatementNodes[i];
+			      el_id = el.getAttribute('id');
+			      el_value = el.childNodes[0].nodeValue;
+			      statements.push({id: el_id, statement: el_value});
+		    }
+		    //Pick how many statements we have so we can use it for checks
+		    $rootScope.numberOfStatements = 
+			      JSON.parse(JSON.stringify(statements.length));
+		    //shuffleArray(statements);
+		    $rootScope.statements = JSON.parse(JSON.stringify(statements));
+        $rootScope.statementsDone = 0;
+	  }
 
-    
-	$scope.cards = {
-		selected: null,
-		first: 1,
-		statements: $rootScope.statements,
-	};
+    $scope.currentStatement = $rootScope.statements.shift();
 
-	$scope.classifications = {
-		'AGREE': [],
-		'NEUTRAL': [],
-		'DISAGREE': [],
-	};
+	  $scope.classifications = {
+		    'AGREE': [],
+		    'NEUTRAL': [],
+		    'DISAGREE': [],
+	  };
 
-    $scope.statementsToGo = $rootScope.numberOfStatements -
-        numberOfClassifiedStatements($scope.classifications);
+	  /*Checks if $rootScope is already defined (the user had made his classifications)*/
+	  if (typeof $rootScope.classifications == "undefined") {
+		    if (typeof $rootScope.classifications_step3 != "undefined") {
+		    }
+		    $rootScope.classifications = $scope.classifications;
+	  } else {
+		    $scope.classifications = $rootScope.classifications;
+	  }
 
+	  $scope.hasNoCategory = function (statement) {
+		    return statement.category != "undefined";
+	  };
 
-	$('#helpModal').modal(show = true);
+	  $scope.done = function () {
+		    return $rootScope.statementsDone >= $rootScope.numberOfStatements;
+	  };
 
-	/*Checks if $rootScope is already defined (the user had made his classifications)*/
-	if (typeof $rootScope.classifications == "undefined") {
-		if (typeof $rootScope.classifications_step3 != "undefined") {
-		}
-		$rootScope.classifications = $scope.classifications;
-	} else {
-		$scope.classifications = $rootScope.classifications;
-	}
+	  $scope.next = function () {
+		    $rootScope.classifications_step3 = JSON.parse(JSON.stringify($rootScope.classifications));
+		    $state.go('step4');
+	  };
 
-	$scope.hasNoCategory = function (statement) {
-		return statement.category != "undefined";
-	}
+	  $scope.back = function () {
+        $rootScope.statements.push($scope.currentStatement);
+		    $state.go('step1');
+	  };
 
+    if(!$scope.done()) {
+     	  $('#helpModal').modal(show = true);
+    }
 
-	$scope.done = function () {
-		return $rootScope.statements.length == 0;
-	}
+	  if (debugging) {
+		    $scope.help = function () {
+			      for (var i = 0; i < 50 && ($rootScope.classifications.length != 0); ++i) {
+				        var ii = i % 3;
+				        var s = $rootScope.statements.shift();
+				        if (ii == 0) {
+					          s.category = "agree";
+					          $scope.classifications.AGREE.push(s);
+				        } else if (ii == 1) {
+					          s.category = "neutral";
+					          $scope.classifications.NEUTRAL.push(s);
+				        } else if (ii == 2) {
+					          s.category = "disagree";
+					          $scope.classifications.DISAGREE.push(s);
+				        }
+			      }
+		    }
+		    $scope.help();
+	  }
 
-	$scope.next = function () {
-		$rootScope.classifications_step3 = JSON.parse(JSON.stringify($rootScope.classifications));
-		$state.go('step4');
-	}
+    $scope.statementsToGo = function() {
+        return $rootScope.numberOfStatements - $rootScope.statementsDone;
+    };
 
-	$scope.back = function () {
-		$state.go('step1');
-	}
+    $scope.disagree = function() {
+        $scope.classifications.DISAGREE.push($scope.currentStatement);
+        $scope.currentStatement = $rootScope.statements.shift();
+        $rootScope.statementsDone += 1;
+    };
 
-	if (debugging) {
-		$scope.help = function () {
-			for (var i = 0; i < 50 && ($rootScope.classifications.length != 0); ++i) {
-				var ii = i % 3;
-				var s = $rootScope.statements.shift();
-				if (ii == 0) {
-					s.category = "agree";
-					$scope.classifications.AGREE.push(s);
-				} else if (ii == 1) {
-					s.category = "neutral";
-					$scope.classifications.NEUTRAL.push(s);
-				} else if (ii == 2) {
-					s.category = "disagree";
-					$scope.classifications.DISAGREE.push(s);
-				}
-			}
-		}
-		$scope.help();
-	}
+    $scope.neutral = function() {
+        $scope.classifications.NEUTRAL.push($scope.currentStatement);
+        $scope.currentStatement = $rootScope.statements.shift();
+        $rootScope.statementsDone += 1;
+    };
+
+    $scope.agree = function() {
+        $scope.classifications.AGREE.push($scope.currentStatement);
+        $scope.currentStatement = $rootScope.statements.shift();
+        $rootScope.statementsDone += 1;
+    };
 
 	$scope.dropAgreeCallback = function (index, item, external, type) {
-
-		if ($scope.cards.first == item.id) {
-			$scope.cards.first = $scope.cards.first + 1;
-		}
 		item.category = "agree";
 		$scope.classifications.AGREE.push(item);
 
-      $scope.statementsToGo = $rootScope.numberOfStatements -
-          numberOfClassifiedStatements($scope.classifications);
- 
 		return true;
-	}
+	};
 
 	$scope.dropNeutralCallback = function (index, item, external, type) {
-		if ($scope.cards.first == item.id) {
-			$scope.cards.first = $scope.cards.first + 1;
-		}
-
 		item.category = "neutral";
 		$scope.classifications.NEUTRAL.push(item);
 
-      $scope.statementsToGo = $rootScope.numberOfStatements -
-          numberOfClassifiedStatements($scope.classifications);
-
 		return true;
-	}
+	};
 
 	$scope.dropDisagreeCallback = function (index, item, external, type) {
-		if ($scope.cards.first == item.id) {
-			$scope.cards.first = $scope.cards.first + 1;
-		}
-
 		item.category = "disagree";
 		$scope.classifications.DISAGREE.push(item);
 
-      $scope.statementsToGo = $rootScope.numberOfStatements -
-          numberOfClassifiedStatements($scope.classifications);
-
 		return true;
-	}
+	};
 }]);
 
 app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$compile', function (promisedata, $scope, $rootScope, $state, $compile) {

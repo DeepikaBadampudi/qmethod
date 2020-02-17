@@ -40,22 +40,30 @@
         </div>
     </div>
 
-    <div class="row justify-content-center">
-        <div ng-show="!done()" class="statementcounter">
-            <p>Statements to go: <span class="badge badge-info">{{ statementsToGo }}</span></p>
+    <div class="row justify-content-center" ng-show="!done()">
+        <div class="statementcounter">
+            <p>Statements to go: <span class="badge badge-info">{{ statementsToGo() }}</span></p>
         </div>
     </div>
 
-    <div class="cardsholder row justify-content-center" style="height: 175px">
-        <ul dnd-list="cards.statements">
-            <li ng-repeat="statement in cards.statements | filter: hasNoCategory | limitTo: 1"
-                 dnd-draggable="statement" dnd-moved="cards.statements.splice($index, 1)"
-                 dnd-effect-allowed="move" dnd-selected="cards.first == statement.id"
-                  >
-                    {{ statement.statement }}
-            </li>
-             <li class="dndPlaceholder" style="display: none;"></li>
-        </ul>
+    <div class="row justify-content-center" ng-show="!done()">
+        <div class="card col-md-3">
+            <div class="card-body">
+                <p>{{ currentStatement.statement }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center" ng-show="!done()" style="margin-top:10px; margin-bottom:40px;">
+        <div class="col-md-1">
+            <button type="button" ng-click="disagree()" class="btn btn-block disagree-gradient">Disagree</button>
+        </div>
+        <div class="col-md-1">
+            <button type="button" ng-click="neutral()" class="btn btn-block neutral-gradient">Neutral</button>
+        </div>
+        <div class="col-md-1">
+            <button type="button" ng-click="agree()" class="btn btn-block agree-gradient">Agree</button>
+        </div>
     </div>
 
     <div class="step3lists row justify-content-center">
@@ -66,7 +74,7 @@
                         <td style="vertical-align:top">
                             <div style="width:320px;padding-right:10px;">
                                 <div class="card" id="disagree">
-                                    <div class="card-header disagree_card_heading">
+                                    <div class="card-header disagree-gradient">
                                         <h3 class="card-title" align="center">DISAGREE</h3>
                                     </div>
                                     <ul dnd-list="classifications" dnd-drop="dropDisagreeCallback(index, item, external, type)">
@@ -80,7 +88,7 @@
                         <td style="vertical-align:top">
                             <div style="width:320px;padding-right:10px;">
                                 <div class="card" id="neutral">
-                                    <div class="card-header neutral_card_heading">
+                                    <div class="card-header neutral-gradient">
                                         <h3 class="card-title" align="center">NEUTRAL</h3>
                                     </div>
                                     <ul dnd-list="classifications" dnd-drop="dropNeutralCallback(index, item, external, type)">
@@ -94,7 +102,7 @@
                         <td style="vertical-align:top">
                             <div style="width:320px;padding-right:10px;;">
                                 <div class="card" id="agree">
-                                    <div class="card-header agree_card_heading">
+                                    <div class="card-header agree-gradient">
                                         <h3 class="card-title" align="center">AGREE</h3>
                                     </div>
                                     <ul dnd-list="classifications" dnd-drop="dropAgreeCallback(index, item, external, type)">
