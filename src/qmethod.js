@@ -661,12 +661,6 @@ app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$com
 		    $state.go('step5');
 	  };
 
-	  $scope.back = function () {
-		    delete $rootScope.tablecompiled;
-		    delete $rootScope.ratings;
-		    $state.go('step3');
-	  };
-
 	  $scope.dropCallback = function (index, item, external, type) {
 		    return item;
 	  };
@@ -766,10 +760,6 @@ app.controller("step5Ctrl", function ($scope, $rootScope, $state) {
 
 	$scope.next = function () {
 		$state.go('step6');
-	}
-
-	$scope.back = function () {
-		$state.go('step4');
 	}
 
 	String.prototype.isEmpty = function () {
