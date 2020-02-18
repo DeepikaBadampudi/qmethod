@@ -32,13 +32,13 @@
 <statement id="26">It is important to investigate strategies for merging pull requests.</statement> 
 <statement id="27">It is important to investigate motivations, challenges and best practices of the code review process.</statement> 
 
-<statement id="28">It is important to investigate review performance and reviewers’ age and experience.</statement> 
-<statement id="29">It is important to investigate review performance and reviewers’ attention span.</statement> 
-<statement id="30">It is important to investigate review performance and reviewers’ workload.</statement> 
-<statement id="31">It is important to investigate review performance and reviewers’ social interactions.</statement> 
-<statement id="32">It is important to investigate review performance and reviewers’ understanding of each other's comments.</statement> 
-<statement id="33">It is important to investigate review performance and reviewers’ reviewing patterns and focus.</statement> 
-<statement id="34">It is important to investigate review performance and reviewers’ perception of code quality.</statement> 
+<statement id="28">It is important to investigate the relation between review performance and reviewers’ age and experience.</statement> 
+<statement id="29">It is important to investigate the relation between review performance and reviewers’ attention span.</statement> 
+<statement id="30">It is important to investigate the relation between review performance and reviewers’ workload.</statement> 
+<statement id="31">It is important to investigate the relation between review performance and reviewers’ social interactions.</statement> 
+<statement id="32">It is important to investigate the relation between review performance and reviewers’ understanding of each other's comments.</statement> 
+<statement id="33">It is important to investigate the relation between review performance and reviewers’ reviewing patterns and focus.</statement> 
+<statement id="34">It is important to investigate the relation between review performance and reviewers’ perception of code quality.</statement> 
 
 <statement id="35">It is important to investigate the difference between core and irregular reviewers in terms of the review requests amount, frequency and speed.</statement> 
 <statement id="36">It is important to investigate the difference between core and irregular reviewers in terms of the activity, involvement and commitment.</statement> 
