@@ -441,7 +441,7 @@ app.controller("step3Ctrl",['promisedata','$scope', '$rootScope', '$state', func
 					          $scope.classifications.DISAGREE.push(s);
 				        }
 			      }
-		    }
+		    };
 		    $scope.help();
 	  }
 
@@ -450,210 +450,271 @@ app.controller("step3Ctrl",['promisedata','$scope', '$rootScope', '$state', func
     };
 
     $scope.disagree = function() {
+        $scope.currentStatement.category = "disagree";
         $scope.classifications.DISAGREE.push($scope.currentStatement);
         $scope.currentStatement = $rootScope.statements.shift();
         $rootScope.statementsDone += 1;
     };
 
     $scope.neutral = function() {
+        $scope.currentStatement.category = "neutral";
         $scope.classifications.NEUTRAL.push($scope.currentStatement);
         $scope.currentStatement = $rootScope.statements.shift();
         $rootScope.statementsDone += 1;
     };
 
     $scope.agree = function() {
+        $scope.currentStatement.category = "agree";
         $scope.classifications.AGREE.push($scope.currentStatement);
         $scope.currentStatement = $rootScope.statements.shift();
         $rootScope.statementsDone += 1;
     };
 
-	$scope.dropAgreeCallback = function (index, item, external, type) {
-		item.category = "agree";
-		$scope.classifications.AGREE.push(item);
+	  $scope.dropAgreeCallback = function (index, item, external, type) {
+		    item.category = "agree";
+		    $scope.classifications.AGREE.push(item);
 
-		return true;
-	};
+		    return true;
+	  };
 
-	$scope.dropNeutralCallback = function (index, item, external, type) {
-		item.category = "neutral";
-		$scope.classifications.NEUTRAL.push(item);
+	  $scope.dropNeutralCallback = function (index, item, external, type) {
+		    item.category = "neutral";
+		    $scope.classifications.NEUTRAL.push(item);
 
-		return true;
-	};
+		    return true;
+	  };
 
-	$scope.dropDisagreeCallback = function (index, item, external, type) {
-		item.category = "disagree";
-		$scope.classifications.DISAGREE.push(item);
+	  $scope.dropDisagreeCallback = function (index, item, external, type) {
+		    item.category = "disagree";
+		    $scope.classifications.DISAGREE.push(item);
 
-		return true;
-	};
+		    return true;
+	  };
 }]);
 
 app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$compile', function (promisedata, $scope, $rootScope, $state, $compile) {
 
-	// //If user has distributed over normal distribution re-use it
-	$scope.ratings = [];
-	$scope.classifications = JSON.parse(JSON.stringify($rootScope.classifications));
-	$scope.debugging = angular.copy(debugging);
+	  // //If user has distributed over normal distribution re-use it
+	  $scope.ratings = [];
+    $scope.rows = [];
+	  $scope.classifications = JSON.parse(JSON.stringify($rootScope.classifications));
+	  $scope.debugging = angular.copy(debugging);
 
-	if (typeof $rootScope.ratings != "undefined"){
-		$scope.ratings = JSON.parse(JSON.stringify($rootScope.ratings));
-		$scope.classifications.AGREE = [];
-		$scope.classifications.NEUTRAL = [];
-		$scope.classifications.DISAGREE = [];
-	}
-	var smallerLabel = {};
-		 smallerLabel.value = 0;
+    $scope.getNextBin = function() {
+        if($scope.ratings["rating3"].length < $scope.rows["rating3"]) {
+            $scope.ratingLabel = "+3";
+            $scope.ratingClass = "agree-gradient";
+            return $scope.ratings["rating3"];
+        } else if ($scope.ratings["rating_3"].length < $scope.rows["rating_3"]) {
+            $scope.ratingLabel = "-3";
+            $scope.ratingClass = "disagree-gradient";
+            return $scope.ratings["rating_3"];
+        } else if ($scope.ratings["rating2"].length < $scope.rows["rating2"]) {
+            $scope.ratingLabel = "+2";
+            $scope.ratingClass = "agree-gradient";
+            return $scope.ratings["rating2"];
+        } else if ($scope.ratings["rating_2"].length < $scope.rows["rating_2"]) {
+            $scope.ratingLabel = "-2";
+            $scope.ratingClass = "disagree-gradient";
+            return $scope.ratings["rating_2"];
+        } else if ($scope.ratings["rating1"].length < $scope.rows["rating1"]) {
+            $scope.ratingLabel = "+1";
+            $scope.ratingClass = "agree-gradient";
+            return $scope.ratings["rating1"];
+        } else if ($scope.ratings["rating_1"].length < $scope.rows["rating_1"]) {
+            $scope.ratingLabel = "-1";
+            $scope.ratingClass = "disagree-gradient";
+            return $scope.ratings["rating_1"];
+        } else {
+            // Copy all remaining statements to neutral
+            let tmp = $scope.classifications.DISAGREE.concat($scope.classifications.NEUTRAL);
+            tmp = tmp.concat($scope.classifications.AGREE);
+            $scope.ratings["rating0"] = $scope.ratings["rating0"].concat(tmp);
+
+            // Delete remining statements from classifications
+            $scope.classifications.DISAGREE = $scope.classifications.NEUTRAL = $scope.classifications.AGREE = [];
+            return $scope.ratings["rating0"];
+        }
+    };
+
+	  if (typeof $rootScope.ratings != "undefined"){
+		    $scope.ratings = JSON.parse(JSON.stringify($rootScope.ratings));
+		    $scope.classifications.AGREE = [];
+		    $scope.classifications.NEUTRAL = [];
+		    $scope.classifications.DISAGREE = [];
+	  }
+	  var smallerLabel = {};
+		smallerLabel.value = 0;
 		smallerLabel.rating_id = '';
 
-	var biggerLabel = {};
+	  var biggerLabel = {};
 		biggerLabel.value = 0;
 		biggerLabel.rating_id = '';
 
-	if (typeof $rootScope.table == "undefined") {
-		var tr_el = document.createElement('tr');
+	  if (typeof $rootScope.table == "undefined") {
+		    var tr_el = document.createElement('tr');
 
-		parser = new DOMParser();
-		xmlDoc = parser.parseFromString(promisedata.data, "application/xml");
-		xmlDocStatementNodes = xmlDoc.getElementsByTagName("column");
-		for (i = 0; i < xmlDocStatementNodes.length; i++) {
-			var el = xmlDocStatementNodes[i];
-			var el_id = parseInt(el.getAttribute('id'), 10);
-			var el_rating_id =  "rating"+ (el_id < 0 ? ('_'+Math.abs(el_id)) : el_id );
-			var el_colour = String(el.getAttribute('colour'));
-			var el_rows = parseInt(el.childNodes[0].nodeValue, 10);
-			if (el_colour != "null" && el_id != "NaN" && el_rows != "NaN") {
-				if (el_id < smallerLabel.value){
-					smallerLabel.value = el_id;
-					smallerLabel.rating_id = el_rating_id;
-				}
-				if (el_id > biggerLabel.value){
-					biggerLabel.value = el_id;
-					biggerLabel.rating_id = el_rating_id;
-				}
-				tr_el.appendChild(generateMyTd(el_id,el_rows,el_colour));
-				$scope.ratings[el_rating_id] = [];
-			}	
-		}
+		    parser = new DOMParser();
+		    xmlDoc = parser.parseFromString(promisedata.data, "application/xml");
+		    xmlDocStatementNodes = xmlDoc.getElementsByTagName("column");
+		    for (i = 0; i < xmlDocStatementNodes.length; i++) {
+			      var el = xmlDocStatementNodes[i];
+			      var el_id = parseInt(el.getAttribute('id'), 10);
+			      var el_rating_id =  "rating"+ (el_id < 0 ? ('_'+Math.abs(el_id)) : el_id );
+			      var el_colour = String(el.getAttribute('colour'));
+			      var el_rows = parseInt(el.childNodes[0].nodeValue, 10);
+			      if (el_colour != "null" && el_id != "NaN" && el_rows != "NaN") {
+				        if (el_id < smallerLabel.value){
+					          smallerLabel.value = el_id;
+					          smallerLabel.rating_id = el_rating_id;
+				        }
+				        if (el_id > biggerLabel.value){
+					          biggerLabel.value = el_id;
+					          biggerLabel.rating_id = el_rating_id;
+				        }
+				        tr_el.appendChild(generateMyTd(el_id,el_rows,el_colour));
+				        $scope.ratings[el_rating_id] = [];
+                $scope.rows[el_rating_id] = el_rows;
+			      }
+		    }
 
-		$rootScope.table = tr_el;
-		$rootScope.ratingsNegExt = smallerLabel.rating_id;
-		$rootScope.ratingsPosExt = biggerLabel.rating_id;
-		$rootScope.ratingsPosExtId = biggerLabel.value;
-		$rootScope.ratingsNegExtId = smallerLabel.value;
-	}
-	if ((typeof $rootScope.tablecompiled == "undefined") &&
-	 typeof $rootScope.table != "undefined") {
-		//HIC SUNT DRACONES
-		//Compile table
-		var cpy = $rootScope.table.cloneNode(true);
-		var linkFn = $compile(cpy);
-		//Link table
-		var content = linkFn($scope);
-		//Store table into rootscope
-		$rootScope.tablecompiled = content[0];
-	}
+		    $rootScope.table = tr_el;
+		    $rootScope.ratingsNegExt = smallerLabel.rating_id;
+		    $rootScope.ratingsPosExt = biggerLabel.rating_id;
+		    $rootScope.ratingsPosExtId = biggerLabel.value;
+		    $rootScope.ratingsNegExtId = smallerLabel.value;
+	  }
 
-	if ($rootScope.table != "undefined"){
-		var table = document.getElementsByTagName('table')[0];
+    $scope.currentBin = $scope.getNextBin();
 
-		while (table.firstChild) {
-			table.removeChild(table.firstChild);
-		}
+	  if ((typeof $rootScope.tablecompiled == "undefined") &&
+	      typeof $rootScope.table != "undefined") {
+		    //HIC SUNT DRACONES
+		    //Compile table
+		    var cpy = $rootScope.table.cloneNode(true);
+		    var linkFn = $compile(cpy);
+		    //Link table
+		    var content = linkFn($scope);
+		    //Store table into rootscope
+		    $rootScope.tablecompiled = content[0];
+	  }
 
-		table.append($rootScope.tablecompiled);
-	}
+	  if ($rootScope.table != "undefined"){
+		    var table = document.getElementsByTagName('table')[0];
+		    while (table.firstChild) {
+			      table.removeChild(table.firstChild);
+		    }
 
-	$scope.dropAgreeCallback = function (index, item, external, type) {
-		var ret = item.category == "agree";
-		if (ret) {
-			$scope.classifications.AGREE.push(item);
-		} else {
-		}
-		return ret;
-	};
+		    table.append($rootScope.tablecompiled);
+	  }
 
-	$scope.dropNeutralCallback = function (index, item, external, type) {
-		var ret = item.category == "neutral";
-		if (ret) {
-			$scope.classifications.NEUTRAL.push(item);
-		}
-		return ret;
-	};
+	  $scope.dropAgreeCallback = function (index, item, external, type) {
+		    var ret = item.category == "agree";
+		    if (ret) {
+			      $scope.classifications.AGREE.push(item);
+		    }
+		    return ret;
+	  };
 
-	$scope.dropDisagreeCallback = function (index, item, external, type) {
-		var ret = item.category == "disagree";
-		if (ret) {
-			$scope.classifications.DISAGREE.push(item);
-		}
-		return ret;
-	};
+	  $scope.dropNeutralCallback = function (index, item, external, type) {
+		    var ret = item.category == "neutral";
+		    if (ret) {
+			      $scope.classifications.NEUTRAL.push(item);
+		    }
+		    return ret;
+	  };
 
-	$scope.done = function () {
-		var numberOfStatements = 0;
-		for (var key in $scope.ratings) {
-			if ($scope.ratings.hasOwnProperty(key)) {
-				numberOfStatements += $scope.ratings[key].length;
-			}
-		}
-		return numberOfStatements == $rootScope.numberOfStatements;
-	};
+	  $scope.dropDisagreeCallback = function (index, item, external, type) {
+		    var ret = item.category == "disagree";
+		    if (ret) {
+			      $scope.classifications.DISAGREE.push(item);
+		    }
+		    return ret;
+	  };
 
-	$('#helpModal').modal(show = true);
+	  $scope.done = function () {
+		    var numberOfStatements = 0;
+		    for (var key in $scope.ratings) {
+			      if ($scope.ratings.hasOwnProperty(key)) {
+				        numberOfStatements += $scope.ratings[key].length;
+			      }
+		    }
+		    return numberOfStatements == $rootScope.numberOfStatements;
+	  };
 
-	$scope.getStyle = function(statement) {
-		if(statement.category == "agree") {
-			return {"background-color":"#00A848"};
-		} else if (statement.category == "neutral") {
-			return {"background-color":"#BAB9B9"};
-		} else {
-			return {"background-color":"#FF6666"};
-		}
-	}
+	  $('#helpModal').modal(show = true);
 
-	$scope.next = function () {
-		//Copy ratings defined on this step to rootScope so we can send later
-		$rootScope.ratings = Object.assign({}, $scope.ratings);
-		delete $rootScope.tablecompiled;
-		$state.go('step5');
-	}
+	  $scope.getStyle = function(statement) {
+		    if(statement.category == "agree") {
+			      return {"background-color":"#00A848"};
+		    } else if (statement.category == "neutral") {
+			      return {"background-color":"#BAB9B9"};
+		    } else {
+			      return {"background-color":"#FF6666"};
+		    }
+	  };
 
-	$scope.back = function () {
-		delete $rootScope.tablecompiled;
-		delete $rootScope.ratings;
-		$state.go('step3');
-	}
+	  $scope.next = function () {
+		    //Copy ratings defined on this step to rootScope so we can send later
+		    $rootScope.ratings = Object.assign({}, $scope.ratings);
+		    delete $rootScope.tablecompiled;
+		    $state.go('step5');
+	  };
 
-	$scope.dropCallback = function (index, item, external, type) {
-		return item;
-	}
-	if (debugging) {
-		$scope.help = function() {
-			var concatlists = [];
-			concatlists = concatlists.concat($scope.classifications.AGREE,
-					$scope.classifications.NEUTRAL ,
-					$scope.classifications.DISAGREE);
-			$scope.classifications.AGREE = [];
-			$scope.classifications.NEUTRAL = [];
-			$scope.classifications.DISAGREE = [];
-			for(var i = 0; i < 2; ++i){
-				$scope.ratings.rating3.push(concatlists.shift());
-				$scope.ratings.rating_3.push(concatlists.shift());
-			}
-			for(var i = 0; i < 6; ++i){
-				$scope.ratings.rating2.push(concatlists.shift());
-				$scope.ratings.rating_2.push(concatlists.shift());
-			}
-			for(var i = 0; i < 10; ++i){
-				$scope.ratings.rating1.push(concatlists.shift());
-				$scope.ratings.rating_1.push(concatlists.shift());
-			}
-			for(var i = 0; i < 14; ++i){
-				$scope.ratings.rating0.push(concatlists.shift());
-			}
-		}
-		$scope.help();
-	}
+	  $scope.back = function () {
+		    delete $rootScope.tablecompiled;
+		    delete $rootScope.ratings;
+		    $state.go('step3');
+	  };
+
+	  $scope.dropCallback = function (index, item, external, type) {
+		    return item;
+	  };
+
+    $scope.chooseStatement = function(index, item) {
+        let stmtarray = [];
+
+        if(item.category == "disagree") {
+            stmtarray = $scope.classifications.DISAGREE.splice(index, 1);
+        } else if(item.category == "agree") {
+            stmtarray = $scope.classifications.AGREE.splice(index, 1);
+        } else if(item.category == "neutral") {
+            stmtarray = $scope.classifications.NEUTRAL.splice(index, 1);
+        }
+
+        if(stmtarray.length == 1) {
+            $scope.currentBin.push(stmtarray[0]);
+            $scope.currentBin = $scope.getNextBin();
+        }
+    };
+
+	  if (debugging) {
+		    $scope.help = function() {
+			      var concatlists = [];
+			      concatlists = concatlists.concat($scope.classifications.AGREE,
+					                                   $scope.classifications.NEUTRAL ,
+					                                   $scope.classifications.DISAGREE);
+			      $scope.classifications.AGREE = [];
+			      $scope.classifications.NEUTRAL = [];
+			      $scope.classifications.DISAGREE = [];
+			      for(var i = 0; i < 2; ++i){
+				        $scope.ratings.rating3.push(concatlists.shift());
+				        $scope.ratings.rating_3.push(concatlists.shift());
+			      }
+			      for(var i = 0; i < 6; ++i){
+				        $scope.ratings.rating2.push(concatlists.shift());
+				        $scope.ratings.rating_2.push(concatlists.shift());
+			      }
+			      for(var i = 0; i < 10; ++i){
+				        $scope.ratings.rating1.push(concatlists.shift());
+				        $scope.ratings.rating_1.push(concatlists.shift());
+			      }
+			      for(var i = 0; i < 14; ++i){
+				        $scope.ratings.rating0.push(concatlists.shift());
+			      }
+		    }
+		    $scope.help();
+	  }
 }]);
 
 app.controller("step5Ctrl", function ($scope, $rootScope, $state) {

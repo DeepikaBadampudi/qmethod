@@ -67,7 +67,12 @@
                                 <ul dnd-list="classifications.DISAGREE" dnd-drop="dropDisagreeCallback(index, item, external, type)">
                                     <li ng-repeat="statement in classifications.DISAGREE" dnd-draggable="statement" dnd-moved="classifications.DISAGREE.splice($index, 1)"
                                         dnd-effect-allowed="move">
-                                        {{ statement.statement }}
+                                        <div class="card" ng-click="chooseStatement($index, statement)">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><span class="badge {{ ratingClass }}">{{ ratingLabel }}</span></h5>
+                                                {{ statement.statement }}
+                                            </div>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -82,7 +87,12 @@
                                 <ul dnd-list="classifications.NEUTRAL" dnd-drop="dropNeutralCallback(index, item, external, type)">
                                     <li ng-repeat="statement in classifications.NEUTRAL" dnd-draggable="statement" dnd-moved="classifications.NEUTRAL.splice($index, 1)"
                                         dnd-effect-allowed="move">
-                                        {{ statement.statement }}
+                                        <div class="card" ng-click="chooseStatement($index, statement)">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><span class="badge {{ ratingClass }}">{{ ratingLabel }}</span></h5>
+                                                {{ statement.statement }}
+                                            </div>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -97,7 +107,12 @@
                                 <ul dnd-list="classifications.AGREE" dnd-drop="dropAgreeCallback(index, item, external, type)">
                                     <li ng-repeat="statement in classifications.AGREE" dnd-draggable="statement" dnd-moved="classifications.AGREE.splice($index, 1)"
                                         dnd-effect-allowed="move">
-                                        {{ statement.statement }}
+                                        <div class="card" ng-click="chooseStatement($index, statement)">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><span class="badge {{ ratingClass }}">{{ ratingLabel }}</span></h5>
+                                                {{ statement.statement }}
+                                            </div>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
