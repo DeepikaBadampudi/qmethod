@@ -90,7 +90,7 @@ var xml2html = function (xml) {
 		return {};
 	}
 
-	var	xmlDocStatementNodes = xmlDoc.getElementsByTagName("div");
+	var	xmlDocStatementNodes = xmlDoc.getElementsByTagName("page");
 	var pages = [];
 
 	for (i = 0; i < xmlDocStatementNodes.length; i++) {

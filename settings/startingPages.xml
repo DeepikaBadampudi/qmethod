@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pages>
-	<div>
-		<p style="margin-left:100px; margin-right:100px; margin-bottom:20px; margin-top:50px;">
-			
-			This survey is part of a research study conducted by researchers: Deepika Badampudi and Michael Unterkalmsteiner from Blekinge Institute of Technology, Sweden, and Ricardo Britto from Ericsson, Sweden. 
-			You are being invited to participate in a research study. 
-			Before you take part in this survey, it is important that you understand the details of the research study. 
-			Please read the following information carefully. Please ask the resesrachers if you have any questions or if you need more information.
+<page>
+	<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8 offset-md-2" style="margin-bottom:20px; margin-top:50px;">
+        <h2>Modern code reviews - what do practitioners think about research?</h2>
+
+		    <p>This survey is part of a research study conducted by researchers: Deepika Badampudi and Michael Unterkalmsteiner from Blekinge Institute of Technology, Sweden, and Ricardo Britto from Ericsson, Sweden.</p>
+
+        <p>You are being invited to participate in a research study. Before you take part in this survey, it is important that you understand the details of the research study. Please read the following information carefully. Please ask the resesrachers if you have any questions or if you need more information.</p>
 		
-			The purpose of the research is to transfer code reviews research to practice. 
-			In order to do that we would like to know your opinion on the topics that you as a code reviewer and/or contributor perceive to be important.
-			The results of the study will be presented in a scientific publication.
-			The survey will take about 25 minutes to answer. 
+			  <p>The purpose of the research is to transfer code reviews research to practice. In order to do that we would, like to know your opinion on the topics that you as a code reviewer and/or contributor perceive to be important.	The results of the study will be presented in a scientific publication. The survey will take about 25 minutes to answer.</p>
 			
-			The benefit of participating in the survey is that we will share scientific results on the topics that are most interesting for you.
+			  <p><strong>The benefit of participating in the survey is that we will share scientific results on the topics that are most interesting for you.</strong></p>
 			
-			This study is anonymous. The identity of the respondents will not be retained. Only aggregated results will be published and it will not be possible to trace the identity of the individual code reviewer and/or contributor through the published results.
-			As the identity of the respondents, code reviewer and code owner will be confidential, the risks of disclosing the personal identity and work-related information are minimal.
+			  <p>This study is anonymous. The identity of the respondents will not be retained. Only aggregated results will be published and it will not be possible to trace the identity of the individual code reviewer and/or contributor through the published results. As the identity of the respondents, code reviewer and code owner will be confidential, the risks of disclosing the personal identity and work-related information are minimal.</p>
+
+        <p>Your participation in this study is completely voluntary. You are free to withdraw at any time in the study and without giving a reason.</p>
 			
-			Your participation in this study is completely voluntary. You are free to withdraw at any time in the study and without giving a reason.
-			
-			Person to contact for more information: Deepika Badampudi (deepika.badampudi@bth.se), Michael Unterkalmsteiner (michael.unterkalmsteiner@bth.se) and Ricardo Britto (ricardo.britto@ericsson.com)
-		</p>
+			  <p>Contact information: <a href="mailto:deepika.badampudi@bth.se">Deepika Badampudi</a>, <a href="mailto:michael.unterkalmsteiner@bth.se">Michael Unterkalmsteiner</a> and <a href="mailto:ricardo.britto@ericsson.com">Ricardo Britto</a>.</p>
+      </div>
+    </div>
 	</div>
-	
-</pages>
+</page>
 	
