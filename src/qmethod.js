@@ -386,6 +386,7 @@ app.controller("step3Ctrl",['promisedata','$scope', '$rootScope', '$state', func
         $rootScope.statementsDone = 0;
 	  }
 
+    $scope.statementPrefix = "It is important to investigate";
     $scope.currentStatement = $rootScope.statements.shift();
 
 	  $scope.classifications = {
