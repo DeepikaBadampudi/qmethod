@@ -22,7 +22,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Please explain why you agree most or disagree most with the following statements you have placed below "+3" or "-3".</p>
+                    <p>Please explain why these statements are most/least like you think.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
@@ -33,7 +33,7 @@
 
 	<table align="center">
 		<tr>
-			<td align="center" bgcolor="#06960D" colspan="2" style="font-size: 20px;padding:10px;"><b>AGREE +({{positiveExtreme}})</b></td>
+			<td align="center" bgcolor="#06960D" colspan="2" style="font-size: 20px;padding:10px;"><b>Most like I think +({{positiveExtreme}})</b></td>
 		</tr>
 		<tr><td style=" padding:5px;margin-left: 10px;"></td></tr>
 		<tr ng-repeat="value in explanations.agree">
@@ -49,7 +49,7 @@
 		</tr>
 		<tr><td style=" padding:10px;"></td></tr>
 		<tr>
-			<td align="center" bgcolor="#E82A2A" colspan="2" style="font-size: 20px;padding:10px;"><b>DISAGREE -({{positiveExtreme}})</b></td>
+			<td align="center" bgcolor="#E82A2A" colspan="2" style="font-size: 20px;padding:10px;"><b>Least like I think -({{positiveExtreme}})</b></td>
 		</tr>
 		<tr><td style=" padding:5px;margin-left: 10px;"></td></tr>
 		<tr ng-repeat="value in explanations.disagree">
