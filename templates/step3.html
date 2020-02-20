@@ -1,15 +1,15 @@
-<div class="container-fluid simpleDemo">
+<div class="container simpleDemo">
     <div class="row justify-content-center" ng-show="debugging" align="center" style="background-color:red;color:white">
         <b>DEBUGGING</b>
     </div>
     <div class="row" style="margin-top:20px; margin-bottom:40px;">
-        <div class="col-md-2 offset-md-2">
+        <div class="col-md-2 offset-md-1">
             <button type="button" ng-click="back()" class="btn btn-primary btn-block">Back</button>
         </div>
-				<div class="col-md-2 offset-md-1" data-toggle="modal" data-target="#helpModal">
+				<div class="col-md-3 offset-md-2" data-toggle="modal" data-target="#helpModal">
             <button type="button" class="btn btn-info btn-block">Read the instructions again</button>
         </div>
-        <div class="col-md-2 offset-md-1 next-button" ng-show="done()">
+        <div class="col-md-2 offset-md-2 next-button" ng-show="done()">
             <button type="button" ng-click="next()" class="btn btn-primary btn-block">Continue</button>
         </div>
     </div>
@@ -47,7 +47,7 @@
     </div>
 
     <div class="row justify-content-center" ng-show="!done()">
-        <div class="card col-md-3" style="height:100px;">
+        <div class="card col-md-8" style="height:100px;">
             <div class="card-body">
                 <p>{{ currentStatement.statement }}</p>
             </div>
@@ -55,19 +55,19 @@
     </div>
 
     <div class="row justify-content-center" ng-show="!done()" style="margin-top:30px; margin-bottom:40px;">
-        <div class="col-md-1">
+        <div class="col-md-2">
             <button type="button" ng-click="disagree()" class="btn btn-block disagree-gradient">Disagree</button>
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2">
             <button type="button" ng-click="neutral()" class="btn btn-block neutral-gradient">Neutral</button>
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2">
             <button type="button" ng-click="agree()" class="btn btn-block agree-gradient">Agree</button>
         </div>
     </div>
 
     <div class="step3lists row justify-content-center">
-        <div class="simpleDemo row" style="margin:20px ">
+        <div class="simpleDemo row">
             <div class="row">
                 <table align="center">
                     <tr>

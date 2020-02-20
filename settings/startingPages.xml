@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <page>
-	<div class="container-fluid">
+	<div class="container">
     <div class="row">
-      <div class="col-md-8 offset-md-2" style="margin-bottom:20px; margin-top:50px;">
+      <div style="margin-bottom:20px; margin-top:50px;">
         <h2>Modern code reviews - what do practitioners think about research?</h2>
 
 		    <p>This survey is part of a research study conducted by researchers: Deepika Badampudi and Michael Unterkalmsteiner from Blekinge Institute of Technology, Sweden, and Ricardo Britto from Ericsson, Sweden.</p>
