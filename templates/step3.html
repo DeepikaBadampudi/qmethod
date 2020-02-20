@@ -74,9 +74,6 @@
                         <td style="vertical-align:top">
                             <div style="width:320px;padding-right:10px;">
                                 <div class="card" id="disagree">
-                                    <div class="card-header disagree-gradient">
-                                        <h3 class="card-title" align="center">DISAGREE</h3>
-                                    </div>
                                     <ul dnd-list="classifications" dnd-drop="dropDisagreeCallback(index, item, external, type)">
                                         <li ng-repeat="statement in classifications.DISAGREE" dnd-draggable="statement" dnd-moved="classifications.DISAGREE.splice($index, 1)" dnd-effect-allowed="move">
                                             {{ statement.statement }} 
@@ -88,9 +85,6 @@
                         <td style="vertical-align:top">
                             <div style="width:320px;padding-right:10px;">
                                 <div class="card" id="neutral">
-                                    <div class="card-header neutral-gradient">
-                                        <h3 class="card-title" align="center">NEUTRAL</h3>
-                                    </div>
                                     <ul dnd-list="classifications" dnd-drop="dropNeutralCallback(index, item, external, type)">
                                         <li ng-repeat="statement in classifications.NEUTRAL" dnd-draggable="statement" dnd-moved="classifications.NEUTRAL.splice($index, 1)" dnd-effect-allowed="move">
                                             {{ statement.statement }}
@@ -102,9 +96,6 @@
                         <td style="vertical-align:top">
                             <div style="width:320px;padding-right:10px;;">
                                 <div class="card" id="agree">
-                                    <div class="card-header agree-gradient">
-                                        <h3 class="card-title" align="center">AGREE</h3>
-                                    </div>
                                     <ul dnd-list="classifications" dnd-drop="dropAgreeCallback(index, item, external, type)">
                                         <li ng-repeat="statement in classifications.AGREE" dnd-draggable="statement" dnd-moved="classifications.AGREE.splice($index, 1)" dnd-effect-allowed="move">
                                             {{ statement.statement }}

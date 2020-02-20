@@ -23,10 +23,10 @@
 
             </div>
             <div class="modal-body">
-                <p>Your task is now to rate the statements on a scale from +3 to -3, filling up the pyramid from the outside inwards, alternating between agree and disagree.</p>
-                <p>Read again all statements in the "AGREE" pile and choose those you agree the most by clicking on them (you can also choose one from the "NEUTRAL" or "DISAGREE" pile if you changed your mind). You'll notice that the statements are moved to the correct column automatically.</p>
-                <p>When the column is filled, proceed with the "DISAGREE" pile and chose those statements you disagree the most. When done, proceed again with "AGREE" and fill up the next column.</p>
-                <p>Once only one column is left ("NEUTRAL"), the remaining statements are moved there automatically.</p>
+                <p>Your task is now to sort the statements according to how close they are to how you think. You rate the statements on a scale from +3 to -3, filling up the pyramid from the outside inwards, alternating between most and least.</p>
+                <p>Read again all statements in the green pile and choose those that are closest to how you think by clicking on them (you can also choose one from the grey or red pile if you changed your mind). You'll notice that the statements are moved to the correct column automatically.</p>
+                <p>When the column is filled, proceed with the red pile and chose those statements that are farthest away from how you think. When done, proceed again with the green pile and fill up the next column.</p>
+                <p>Once only one column is left ("I'm indifferent"), the remaining statements are moved there automatically.</p>
                 <p>Note: You can drag and drop cards between the columns if you change your mind. IF YOUR CARDS BECOME TOO SMALL TO READ: Point the mouse cursor over the card and a tool tip will appear with the full statement.</p>
             </div>
             <div class="modal-footer">
@@ -42,17 +42,26 @@
         <table align="center">
         </table>
     </div>
+</div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <p><strong>Least like how I think</strong></p>
+        </div>
+        <div class="col-md-4 text-center">
+            <p><strong>I'm indifferent</strong></p>
+        </div>
+        <div class="col-md-4 text-right">
+            <p><strong>Most like how I think</strong></p>
+        </div>
+    </div>
 
     <div class="simpleDemo row step4lists" style="margin:20px">
-        <div class="row">
             <table align="center">
                 <tr>
                     <td style="vertical-align:top">
                         <div style="width:320px;padding-right:10px;">
                             <div class="card" id="disagree">
-                                <div class="card-header disagree-gradient">
-                                    <h3 class="card-title" align="center">DISAGREE</h3>
-                                </div>
                                 <ul dnd-list="classifications.DISAGREE" dnd-drop="dropDisagreeCallback(index, item, external, type)">
                                     <li ng-repeat="statement in classifications.DISAGREE" dnd-draggable="statement" dnd-moved="classifications.DISAGREE.splice($index, 1)"
                                         dnd-effect-allowed="move">
@@ -70,9 +79,6 @@
                     <td style="vertical-align:top">
                         <div style="width:320px;padding-right:10px;">
                             <div class="card" id="neutral">
-                                <div class="card-header neutral-gradient">
-                                    <h3 class="card-title" align="center">NEUTRAL</h3>
-                                </div>
                                 <ul dnd-list="classifications.NEUTRAL" dnd-drop="dropNeutralCallback(index, item, external, type)">
                                     <li ng-repeat="statement in classifications.NEUTRAL" dnd-draggable="statement" dnd-moved="classifications.NEUTRAL.splice($index, 1)"
                                         dnd-effect-allowed="move">
@@ -90,9 +96,6 @@
                     <td style="vertical-align:top">
                         <div style="width:320px;padding-right:10px;">
                             <div class="card" id="agree">
-                                <div class="card-header agree-gradient">
-                                    <h3 class="card-title" align="center">AGREE</h3>
-                                </div>
                                 <ul dnd-list="classifications.AGREE" dnd-drop="dropAgreeCallback(index, item, external, type)">
                                     <li ng-repeat="statement in classifications.AGREE" dnd-draggable="statement" dnd-moved="classifications.AGREE.splice($index, 1)"
                                         dnd-effect-allowed="move">
@@ -110,6 +113,5 @@
  
                 </tr>
             </table>
-        </div>
     </div>
 </div>
