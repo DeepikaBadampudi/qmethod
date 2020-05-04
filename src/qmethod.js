@@ -797,7 +797,7 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', function ($scope, 
 			explanations: {agree:[],disagree:[]},
 			questionnaire: {},
         metadata: {
-            ip: '',
+            //ip: '',
             starttime: '',
             endtime: '',
             pilot: true,
@@ -830,8 +830,10 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', function ($scope, 
 			response.explanations.disagree.push({statementId:exp.statement.id,text:exp.explanation});
 		}
 
-      $.getJSON("https://api.ipify.org?format=jsonp&callback=?", function(json) {
-          response.metadata.ip = json.ip;
+      // Dont't store the IP anymore since this API seems to be blocked by AD blockers,
+      // resulting in that the data is not stored and we don't get to step 7.
+      // $.getJSON("https://api.ipify.org?format=jsonp&callback=?", function(json) {
+      //    response.metadata.ip = json.ip;
           response.metadata.referral = getUrlParameter('ref');
           response.metadata.starttime = $rootScope.starttime;
           response.metadata.endtime = Date.now();
@@ -848,7 +850,7 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', function ($scope, 
 		      } else {
 			        console.log (JSON.stringify(response));
 		      }
-      });
+      //});
 	}
 
 }]);
