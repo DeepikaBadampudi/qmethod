@@ -249,7 +249,7 @@ var numberOfClassifiedStatements  = function(classifications) {
     return classifications.AGREE.length + classifications.NEUTRAL.length + classifications.DISAGREE.length;
 };
 
-var app = angular.module('qmethod', ['formly','formlyBootstrap','ui.router', 'dndLists', 'igTruncate', '720kb.tooltips']);
+var app = angular.module('qmethod', ['formly','formlyBootstrap','ui.router', 'angular.filter', 'dndLists', 'igTruncate', '720kb.tooltips']);
 
 // ========== CONFIG
 app.config(function ($stateProvider, $locationProvider) {
@@ -375,8 +375,9 @@ app.controller("step3Ctrl",['promisedata','$scope', '$rootScope', '$state', func
 		    for (i=0; i < xmlDocStatementNodes.length; i++) {
 			      el = xmlDocStatementNodes[i];
 			      el_id = el.getAttribute('id');
+            el_eb = el.getAttribute('eb');
 			      el_value = el.childNodes[0].nodeValue;
-			      statements.push({id: el_id, statement: el_value});
+			      statements.push({id: el_id, eb: el_eb, statement: el_value});
 		    }
 		    //Pick how many statements we have so we can use it for checks
 		    $rootScope.numberOfStatements = 
@@ -716,11 +717,11 @@ app.controller("step5Ctrl", function ($scope, $rootScope, $state) {
 
 //		$rootScope.ratingsNegExt = smallerLabel.rating_id;
 //		$rootScope.ratingsPosExt = biggerLabel.rating_id;
-	$scope.positiveExtreme = $rootScope.ratingsPosExtId; 
-	$scope.negativeExtreme = $rootScope.ratingsNegExtId; 
+	$scope.positiveExtreme = $rootScope.ratingsPosExtId;
+	$scope.negativeExtreme = $rootScope.ratingsNegExtId;
 	$scope.debugging = angular.copy(debugging);
-	var negativeExtremesArr = $rootScope.ratings[$rootScope.ratingsNegExt]; 
-	var positiveExtremesArr = $rootScope.ratings[$rootScope.ratingsPosExt]; 
+	var negativeExtremesArr = $rootScope.ratings[$rootScope.ratingsNegExt];
+	var positiveExtremesArr = $rootScope.ratings[$rootScope.ratingsPosExt];
 	if (typeof $rootScope.explanations == "undefined") {
 		var posextremeExplanations = [];
 		var negextremeExplanations = [];
@@ -776,7 +777,7 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', function ($scope, 
 	vm.userForm = $scope.userForm;
 	vm.userFields = $rootScope.formFields;
 	$scope.debugging = angular.copy(debugging);
-	
+
 	$scope.submit = function() {
 		$scope.send();
 	}
@@ -803,8 +804,8 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', function ($scope, 
             referral: ''}
 		}
 		response.questionnaire = angular.copy(vm.model);
-		
-		// Send classifications statement only 
+
+		// Send classifications statement only
 		angular.forEach($rootScope.classifications_step3, function(value, key) {
 			for(let stat of $rootScope.classifications_step3[key]) {
 				response.classifications[key].push(stat.id);
@@ -853,5 +854,22 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', function ($scope, 
 }]);
 
 app.controller("step7Ctrl", function ($scope, $rootScope, $state) {
-	$scope.debugging = angular.copy(debugging);
+	  $scope.debugging = angular.copy(debugging);
+
+    let prefix = 'https://rethought.se/files/YEAR/MONTH/';
+    let suffix = '.pdf';
+
+    $scope.ebs= [];
+
+    for (let rating of $rootScope.ratings.rating3) {
+        let ebName = rating.eb;
+        ebName = ebName.replace(/_/g, ' ');
+        ebName = ebName.substr(0,1).toUpperCase() + ebName.substr(1);
+
+        let ebUrl = prefix + rating.eb + suffix;
+
+        $scope.ebs.push({ebName: ebName, ebUrl: ebUrl});
+    }
+
+
 });

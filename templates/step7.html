@@ -1,21 +1,19 @@
-<div ng-controller='step7Ctrl'>
-	<div ng-show="debugging" align="center" style="background-color:red;color:white">
-		<b>DEBUGGING</b>
-	</div>
-	<br/>
-	
-	<div style="width:93%;float:right;">
-		<p style="font-size: 28px;"><b>You have ended successfully!</b></p>
-		
-		Thank you for participating in this research. <br/><br/>
-		
-	</div>
-	
-	
-	
-	
+<div class="container" ng-controller='step7Ctrl'>
+	  <div class="row justify-content-center" ng-show="debugging" align="center" style="background-color:red;color:white">
+		    <b>DEBUGGING</b>
+	  </div>
 
-	<br/>
-	<br/>
-
+	  <div class="row justify-content-center" style="margin-top:20px;">
+        <div class="alert alert-success" role="alert">You have submitted the data successfully!</div>
+    </div>
+    <div class="row justify-content-center">
+        <h2>Evidence briefings</h2>
+        <p>Our evidence briefings contain a one-page summary of the most recent research on modern code reviews. Based on your answers in the survey, we have selected the briefing(s) that you likely find the most interesting. We provide all summaries on our <a href="https://rethought.se/modern-code-reviews/" target="_blank">evidence briefings page</a>.</p>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" ng-repeat="eb in ebs | unique: 'ebUrl'">
+                <a href="{{eb.ebUrl}}" target="_blank">{{eb.ebName}}</a>
+            </li>
+        </ul>
+    </div>
+	</div>
 </div>
