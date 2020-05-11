@@ -375,9 +375,10 @@ app.controller("step3Ctrl",['promisedata','$scope', '$rootScope', '$state', func
 		    for (i=0; i < xmlDocStatementNodes.length; i++) {
 			      el = xmlDocStatementNodes[i];
 			      el_id = el.getAttribute('id');
-            el_eb = el.getAttribute('eb');
+            el_ebname = el.getAttribute('ebname');
+            el_eburl = el.getAttribute('eburl');
 			      el_value = el.childNodes[0].nodeValue;
-			      statements.push({id: el_id, eb: el_eb, statement: el_value});
+			      statements.push({id: el_id, ebname: el_ebname, eburl: el_eburl, statement: el_value});
 		    }
 		    //Pick how many statements we have so we can use it for checks
 		    $rootScope.numberOfStatements = 
@@ -864,12 +865,8 @@ app.controller("step7Ctrl", function ($scope, $rootScope, $state) {
     $scope.ebs= [];
 
     for (let rating of $rootScope.ratings.rating3) {
-        let ebName = rating.eb;
-        ebName = ebName.replace(/_/g, ' ');
-        ebName = ebName.substr(0,1).toUpperCase() + ebName.substr(1);
-
-        let ebUrl = prefix + rating.eb + suffix;
-
+        let ebName = rating.ebname;
+        let ebUrl = rating.eburl;
         $scope.ebs.push({ebName: ebName, ebUrl: ebUrl});
     }
 

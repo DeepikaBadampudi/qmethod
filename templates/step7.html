@@ -11,7 +11,7 @@
         <p>Our evidence briefings contain a one-page summary of the most recent research on modern code reviews. Based on your answers in the survey, we have selected the briefing(s) that you likely find the most interesting. We provide all summaries on our <a href="https://rethought.se/modern-code-reviews/" target="_blank">evidence briefings page</a>.</p>
         <ul class="list-group list-group-flush">
             <li class="list-group-item" ng-repeat="eb in ebs | unique: 'ebUrl'">
-                <a href="{{eb.ebUrl}}" target="_blank">{{eb.ebName}}</a>
+                <a href="{{eb.ebUrl}}">{{eb.ebName}}</a>
             </li>
         </ul>
     </div>
