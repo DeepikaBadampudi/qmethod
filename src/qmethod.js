@@ -801,7 +801,7 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', function ($scope, 
             //ip: '',
             starttime: '',
             endtime: '',
-            pilot: true,
+            pilot: false,
             referral: ''}
 		}
 		response.questionnaire = angular.copy(vm.model);
