@@ -859,11 +859,7 @@ app.controller("step6Ctrl",['$scope', '$rootScope', '$state', function ($scope, 
 app.controller("step7Ctrl", function ($scope, $rootScope, $state) {
 	  $scope.debugging = angular.copy(debugging);
 
-    let prefix = 'https://rethought.se/files/YEAR/MONTH/';
-    let suffix = '.pdf';
-
     $scope.ebs= [];
-
     for (let rating of $rootScope.ratings.rating3) {
         let ebName = rating.ebname;
         let ebUrl = rating.eburl;
