@@ -5,11 +5,11 @@
   <input type="input" required="true" key="crex">
 		<label>Code review experience (years)</label>
 	</input>
-<input type="input" required="false" key="cname">
-		<label>Current employer name</label>
-	</input>
   <input type="input" required="true" key="role">
 		<label>Current employment (role)</label>
+	</input>
+  <input type="input" required="false" key="cname">
+		<label>Current employer name</label>
 	</input>
   <input type="input" required="false" key="email">
 		<label>Email address</label>
