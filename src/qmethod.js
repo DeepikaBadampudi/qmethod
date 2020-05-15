@@ -1,4 +1,14 @@
 var debugging = false;
+
+/* Disabling the browser back button. The program state is messed up when navigating with the browser
+   buttons instead of the intended means in the app. It's Friday and I have no stamina to fix the state problem
+   in this mess. Taking the stackoverflow pill: https://stackoverflow.com/a/34337617/2091625
+*/
+history.pushState(null, document.title, location.href);
+window.addEventListener('popstate', function (event) {
+    history.pushState(null, document.title, location.href);
+});
+
 var shuffleArray = function (array) {
 	var m = array.length, t, i;
 
@@ -588,8 +598,6 @@ app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$com
 		    $rootScope.ratingsNegExtId = smallerLabel.value;
 	  }
 
-    $scope.currentBin = $scope.getNextBin();
-
 	  if ((typeof $rootScope.tablecompiled == "undefined") &&
 	      typeof $rootScope.table != "undefined") {
 		    //HIC SUNT DRACONES
@@ -610,6 +618,8 @@ app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$com
 
 		    table.append($rootScope.tablecompiled);
 	  }
+
+    $scope.currentBin = $scope.getNextBin();
 
 	  $scope.dropAgreeCallback = function (index, item, external, type) {
 		    var ret = item.category == "agree";
