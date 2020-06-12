@@ -162,12 +162,15 @@ var generateMyTd = function(id, rows, colour) {
 	innerulDndListAttr.value = "ratings.rating" + nId(id);
 	var innerulDndDropAttr = document.createAttribute('dnd-drop');
 	innerulDndDropAttr.value = "dropCallback(index, item, external, type)";
+  var innerulDndInsertedAttr = document.createAttribute('dnd-inserted');
+  innerulDndInsertedAttr.value = "insertedCallback()";
 	var innerulDndDisableIfAttr = document.createAttribute('dnd-disable-if');
 	innerulDndDisableIfAttr.value = "ratings.rating"+nId(id)+".length >=" + rows;
 	var innerulStyleAttr = document.createAttribute('style');
 	innerulStyleAttr.value = "height: " + workAroundpx(rows) + 'px';
-	innerul.setAttributeNode(innerulDndListAttr);
-	innerul.setAttributeNode(innerulDndDropAttr);
+  innerul.setAttributeNode(innerulDndListAttr);
+  innerul.setAttributeNode(innerulDndDropAttr);
+  innerul.setAttributeNode(innerulDndInsertedAttr);
 	innerul.setAttributeNode(innerulDndDisableIfAttr);
 	innerul.setAttributeNode(innerulStyleAttr);
 
@@ -513,41 +516,54 @@ app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$com
 	  $scope.classifications = JSON.parse(JSON.stringify($rootScope.classifications));
 	  $scope.debugging = angular.copy(debugging);
 
-    $scope.getNextBin = function() {
+    $scope.updateCurrentBin = function() {
         if($scope.ratings["rating3"].length < $scope.rows["rating3"]) {
             $scope.ratingLabel = "+3";
             $scope.ratingClass = "agree-gradient";
-            return $scope.ratings["rating3"];
+            $scope.currentBin = $scope.ratings["rating3"];
         } else if ($scope.ratings["rating_3"].length < $scope.rows["rating_3"]) {
             $scope.ratingLabel = "-3";
             $scope.ratingClass = "disagree-gradient";
-            return $scope.ratings["rating_3"];
+            $scope.currentBin = $scope.ratings["rating_3"];
         } else if ($scope.ratings["rating2"].length < $scope.rows["rating2"]) {
             $scope.ratingLabel = "+2";
             $scope.ratingClass = "agree-gradient";
-            return $scope.ratings["rating2"];
+            $scope.currentBin = $scope.ratings["rating2"];
         } else if ($scope.ratings["rating_2"].length < $scope.rows["rating_2"]) {
             $scope.ratingLabel = "-2";
             $scope.ratingClass = "disagree-gradient";
-            return $scope.ratings["rating_2"];
+            $scope.currentBin = $scope.ratings["rating_2"];
         } else if ($scope.ratings["rating1"].length < $scope.rows["rating1"]) {
             $scope.ratingLabel = "+1";
             $scope.ratingClass = "agree-gradient";
-            return $scope.ratings["rating1"];
+            $scope.currentBin = $scope.ratings["rating1"];
         } else if ($scope.ratings["rating_1"].length < $scope.rows["rating_1"]) {
             $scope.ratingLabel = "-1";
             $scope.ratingClass = "disagree-gradient";
-            return $scope.ratings["rating_1"];
+            $scope.currentBin = $scope.ratings["rating_1"];
         } else {
             // Copy all remaining statements to neutral
             let tmp = $scope.classifications.DISAGREE.concat($scope.classifications.NEUTRAL);
             tmp = tmp.concat($scope.classifications.AGREE);
             $scope.ratings["rating0"] = $scope.ratings["rating0"].concat(tmp);
 
-            // Delete remining statements from classifications
-            $scope.classifications.DISAGREE = $scope.classifications.NEUTRAL = $scope.classifications.AGREE = [];
-            return $scope.ratings["rating0"];
+            // Delete remaining statements from classifications
+            $scope.classifications.DISAGREE = [];
+            $scope.classifications.NEUTRAL = [];
+            $scope.classifications.AGREE = [];
+            $scope.currentBin = $scope.ratings["rating0"];
         }
+    };
+
+    $scope.removeFromRatings = function(item) {
+		    for (let rating in $scope.ratings) {
+			      if ($scope.ratings.hasOwnProperty(rating)) {
+                $scope.ratings[rating] = $scope.ratings[rating].filter(
+                    function(value, index, arr) {
+                        return value.id != item.id;
+                });
+			      }
+		    }
     };
 
 	  if (typeof $rootScope.ratings != "undefined"){
@@ -619,12 +635,14 @@ app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$com
 		    table.append($rootScope.tablecompiled);
 	  }
 
-    $scope.currentBin = $scope.getNextBin();
+    $scope.updateCurrentBin();
 
 	  $scope.dropAgreeCallback = function (index, item, external, type) {
 		    var ret = item.category == "agree";
 		    if (ret) {
 			      $scope.classifications.AGREE.push(item);
+            $scope.removeFromRatings(item);
+            $scope.updateCurrentBin();
 		    }
 		    return ret;
 	  };
@@ -633,6 +651,8 @@ app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$com
 		    var ret = item.category == "neutral";
 		    if (ret) {
 			      $scope.classifications.NEUTRAL.push(item);
+            $scope.removeFromRatings(item);
+            $scope.updateCurrentBin();
 		    }
 		    return ret;
 	  };
@@ -641,6 +661,8 @@ app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$com
 		    var ret = item.category == "disagree";
 		    if (ret) {
 			      $scope.classifications.DISAGREE.push(item);
+            $scope.removeFromRatings(item);
+            $scope.updateCurrentBin();
 		    }
 		    return ret;
 	  };
@@ -675,23 +697,30 @@ app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$com
 	  };
 
 	  $scope.dropCallback = function (index, item, external, type) {
+        //need to remove the item so that the inserted callback finds
+        //the correct bin
+        $scope.removeFromRatings(item);
 		    return item;
 	  };
 
+    $scope.insertedCallback = function() {
+        $scope.updateCurrentBin();
+    };
+
     $scope.chooseStatement = function(index, item) {
-        let stmtarray = [];
+        let chosenStatement = [];
 
         if(item.category == "disagree") {
-            stmtarray = $scope.classifications.DISAGREE.splice(index, 1);
+            chosenStatement = $scope.classifications.DISAGREE.splice(index, 1);
         } else if(item.category == "agree") {
-            stmtarray = $scope.classifications.AGREE.splice(index, 1);
+            chosenStatement = $scope.classifications.AGREE.splice(index, 1);
         } else if(item.category == "neutral") {
-            stmtarray = $scope.classifications.NEUTRAL.splice(index, 1);
+            chosenStatement = $scope.classifications.NEUTRAL.splice(index, 1);
         }
 
-        if(stmtarray.length == 1) {
-            $scope.currentBin.push(stmtarray[0]);
-            $scope.currentBin = $scope.getNextBin();
+        if(chosenStatement.length == 1) { //should always be the case
+            $scope.currentBin.push(chosenStatement[0]);
+            $scope.updateCurrentBin();
         }
     };
 
