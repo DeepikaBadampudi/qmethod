@@ -25,8 +25,7 @@
             <div class="modal-body">
                 <p>Your task is now to sort the statements according to how close they are to how you think. You rate the statements on a scale from +3 to -3, filling up the pyramid from the outside inwards, alternating between most and least.</p>
                 <p>Read again all statements in the green pile and choose those that are closest to how you think by clicking on them (you can also choose one from the grey or red pile if you changed your mind). You'll notice that the statements are moved to the correct column automatically.</p>
-                <p>When the column is filled, proceed with the red pile and chose those statements that are farthest away from how you think. When done, proceed again with the green pile and fill up the next column.</p>
-                <p>Once only one column is left ("I'm indifferent"), the remaining statements are moved there automatically.</p>
+                <p>When the column is filled, proceed with the red pile and chose those statements that are farthest away from how you think. When done, proceed again with the green pile and fill up the next column. Proceed until all statements are sorted to the columns.</p>
                 <p>Note: You can drag and drop cards between the columns if you change your mind. IF YOUR CARDS BECOME TOO SMALL TO READ: Point the mouse cursor over the card and a tool tip will appear with the full statement.</p>
             </div>
             <div class="modal-footer">
@@ -63,7 +62,7 @@
                         <div style="width:320px;padding-right:10px;">
                             <div class="card" id="disagree">
                                 <ul dnd-list="classifications.DISAGREE" dnd-drop="dropDisagreeCallback(index, item, external, type)">
-                                    <li ng-repeat="statement in classifications.DISAGREE" dnd-draggable="statement" dnd-moved="classifications.DISAGREE.splice($index, 1)"
+                                    <li ng-repeat="statement in classifications.DISAGREE" dnd-draggable="statement" dnd-moved="movedDisagreeCallback($index)"
                                         dnd-effect-allowed="move">
                                         <div class="card" ng-click="chooseStatement($index, statement)">
                                             <div class="card-body">
@@ -80,7 +79,7 @@
                         <div style="width:320px;padding-right:10px;">
                             <div class="card" id="neutral">
                                 <ul dnd-list="classifications.NEUTRAL" dnd-drop="dropNeutralCallback(index, item, external, type)">
-                                    <li ng-repeat="statement in classifications.NEUTRAL" dnd-draggable="statement" dnd-moved="classifications.NEUTRAL.splice($index, 1)"
+                                    <li ng-repeat="statement in classifications.NEUTRAL" dnd-draggable="statement" dnd-moved="movedNeutralCallback($index)"
                                         dnd-effect-allowed="move">
                                         <div class="card" ng-click="chooseStatement($index, statement)">
                                             <div class="card-body">
@@ -97,7 +96,7 @@
                         <div style="width:320px;padding-right:10px;">
                             <div class="card" id="agree">
                                 <ul dnd-list="classifications.AGREE" dnd-drop="dropAgreeCallback(index, item, external, type)">
-                                    <li ng-repeat="statement in classifications.AGREE" dnd-draggable="statement" dnd-moved="classifications.AGREE.splice($index, 1)"
+                                    <li ng-repeat="statement in classifications.AGREE" dnd-draggable="statement" dnd-moved="movedAgreeCallback($index)"
                                         dnd-effect-allowed="move">
                                         <div class="card" ng-click="chooseStatement($index, statement)">
                                             <div class="card-body">

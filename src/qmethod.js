@@ -162,15 +162,12 @@ var generateMyTd = function(id, rows, colour) {
 	innerulDndListAttr.value = "ratings.rating" + nId(id);
 	var innerulDndDropAttr = document.createAttribute('dnd-drop');
 	innerulDndDropAttr.value = "dropCallback(index, item, external, type)";
-  var innerulDndInsertedAttr = document.createAttribute('dnd-inserted');
-  innerulDndInsertedAttr.value = "insertedCallback()";
-	var innerulDndDisableIfAttr = document.createAttribute('dnd-disable-if');
+  var innerulDndDisableIfAttr = document.createAttribute('dnd-disable-if');
 	innerulDndDisableIfAttr.value = "ratings.rating"+nId(id)+".length >=" + rows;
 	var innerulStyleAttr = document.createAttribute('style');
 	innerulStyleAttr.value = "height: " + workAroundpx(rows) + 'px';
   innerul.setAttributeNode(innerulDndListAttr);
   innerul.setAttributeNode(innerulDndDropAttr);
-  innerul.setAttributeNode(innerulDndInsertedAttr);
 	innerul.setAttributeNode(innerulDndDisableIfAttr);
 	innerul.setAttributeNode(innerulStyleAttr);
 
@@ -204,8 +201,7 @@ var generateMyTd = function(id, rows, colour) {
 	innerliDndDraggableAttr.value = "statement";
 	var innerliDndMovedAttr = document.createAttribute
 		('dnd-moved');
-	innerliDndMovedAttr.value = "ratings.rating"+nId(id)+
-		".splice($index,1)";
+  innerliDndMovedAttr.value = "movedCallback(ratings.rating"+nId(id)+",$index)";
 	var innerliDndEfctAlwdAttr = document.createAttribute
 	('dnd-effect-allowed');
 	innerliDndEfctAlwdAttr.value = "move";
@@ -541,29 +537,11 @@ app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$com
             $scope.ratingLabel = "-1";
             $scope.ratingClass = "disagree-gradient";
             $scope.currentBin = $scope.ratings["rating_1"];
-        } else {
-            // Copy all remaining statements to neutral
-            let tmp = $scope.classifications.DISAGREE.concat($scope.classifications.NEUTRAL);
-            tmp = tmp.concat($scope.classifications.AGREE);
-            $scope.ratings["rating0"] = $scope.ratings["rating0"].concat(tmp);
-
-            // Delete remaining statements from classifications
-            $scope.classifications.DISAGREE = [];
-            $scope.classifications.NEUTRAL = [];
-            $scope.classifications.AGREE = [];
+        } else if ($scope.ratings["rating0"].length < $scope.rows["rating0"]) {
+            $scope.ratingLabel = "0";
+            $scope.ratingClass = "neutral-gradient";
             $scope.currentBin = $scope.ratings["rating0"];
         }
-    };
-
-    $scope.removeFromRatings = function(item) {
-		    for (let rating in $scope.ratings) {
-			      if ($scope.ratings.hasOwnProperty(rating)) {
-                $scope.ratings[rating] = $scope.ratings[rating].filter(
-                    function(value, index, arr) {
-                        return value.id != item.id;
-                });
-			      }
-		    }
     };
 
 	  if (typeof $rootScope.ratings != "undefined"){
@@ -637,11 +615,25 @@ app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$com
 
     $scope.updateCurrentBin();
 
+    $scope.movedAgreeCallback = function(index) {
+        $scope.classifications.AGREE.splice(index, 1);
+        $scope.updateCurrentBin();
+    };
+
+    $scope.movedNeutralCallback = function(index) {
+        $scope.classifications.NEUTRAL.splice(index, 1);
+        $scope.updateCurrentBin();
+    };
+
+    $scope.movedDisagreeCallback = function(index) {
+        $scope.classifications.DISAGREE.splice(index, 1);
+        $scope.updateCurrentBin();
+    };
+
 	  $scope.dropAgreeCallback = function (index, item, external, type) {
 		    var ret = item.category == "agree";
 		    if (ret) {
 			      $scope.classifications.AGREE.push(item);
-            $scope.removeFromRatings(item);
             $scope.updateCurrentBin();
 		    }
 		    return ret;
@@ -651,7 +643,6 @@ app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$com
 		    var ret = item.category == "neutral";
 		    if (ret) {
 			      $scope.classifications.NEUTRAL.push(item);
-            $scope.removeFromRatings(item);
             $scope.updateCurrentBin();
 		    }
 		    return ret;
@@ -661,7 +652,6 @@ app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$com
 		    var ret = item.category == "disagree";
 		    if (ret) {
 			      $scope.classifications.DISAGREE.push(item);
-            $scope.removeFromRatings(item);
             $scope.updateCurrentBin();
 		    }
 		    return ret;
@@ -696,16 +686,14 @@ app.controller("step4Ctrl",['promisedata','$scope', '$rootScope', '$state','$com
 		    $state.go('step5');
 	  };
 
-	  $scope.dropCallback = function (index, item, external, type) {
-        //need to remove the item so that the inserted callback finds
-        //the correct bin
-        $scope.removeFromRatings(item);
-		    return item;
-	  };
-
-    $scope.insertedCallback = function() {
+    $scope.movedCallback = function(ratingBin, index) {
+        ratingBin.splice(index, 1);
         $scope.updateCurrentBin();
     };
+
+	  $scope.dropCallback = function (index, item, external, type) {
+		    return item;
+	  };
 
     $scope.chooseStatement = function(index, item) {
         let chosenStatement = [];
